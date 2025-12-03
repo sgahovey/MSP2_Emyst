@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ExerciceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,17 @@ class Exercice
 
     #[ORM\Column(type: Types::TIME_IMMUTABLE)]
     private ?\DateTimeImmutable $duree = null;
+
+    /**
+     * @var Collection<int, SeanceExercice>
+     */
+    #[ORM\OneToMany(targetEntity: SeanceExercice::class, mappedBy: 'exercices')]
+    private Collection $seanceExercices;
+
+    public function __construct()
+    {
+        $this->seanceExercices = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +103,36 @@ class Exercice
     public function setDuree(\DateTimeImmutable $duree): static
     {
         $this->duree = $duree;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SeanceExercice>
+     */
+    public function getSeanceExercices(): Collection
+    {
+        return $this->seanceExercices;
+    }
+
+    public function addSeanceExercice(SeanceExercice $seanceExercice): static
+    {
+        if (!$this->seanceExercices->contains($seanceExercice)) {
+            $this->seanceExercices->add($seanceExercice);
+            $seanceExercice->setExercices($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeanceExercice(SeanceExercice $seanceExercice): static
+    {
+        if ($this->seanceExercices->removeElement($seanceExercice)) {
+            // set the owning side to null (unless already changed)
+            if ($seanceExercice->getExercices() === $this) {
+                $seanceExercice->setExercices(null);
+            }
+        }
 
         return $this;
     }
