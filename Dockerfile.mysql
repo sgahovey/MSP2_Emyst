@@ -1,0 +1,21 @@
+# Dockerfile pour MySQL - Projet Emyst
+FROM mysql:8.0
+
+# Variables d'environnement pour MySQL
+# Ces variables sont définies dans docker-compose.yml ou via un fichier .env
+# Pour la sécurité, utilisez un fichier .env avec des mots de passe forts
+# Variables supportées par l'image MySQL officielle :
+# - MYSQL_ROOT_PASSWORD (mot de passe root)
+# - MYSQL_DATABASE (nom de la base de données)
+# - MYSQL_USER (utilisateur de l'application)
+# - MYSQL_PASSWORD (mot de passe de l'utilisateur)
+
+# Copier les scripts d'initialisation (optionnel)
+# Si vous avez des fichiers SQL à exécuter au démarrage, décommentez les lignes suivantes
+# COPY ./docker/mysql/init/ /docker-entrypoint-initdb.d/
+
+# Port MySQL
+EXPOSE 3306
+
+# La commande par défaut de l'image MySQL est déjà configurée
+# Elle lancera mysqld et exécutera les scripts dans /docker-entrypoint-initdb.d/
