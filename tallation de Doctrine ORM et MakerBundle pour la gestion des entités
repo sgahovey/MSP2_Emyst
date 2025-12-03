@@ -1,0 +1,320 @@
+warning: in the working copy of 'composer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'composer.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/bundles.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/reference.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docker-compose.yml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'symfony.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'var/cache/dev/App_KernelDevDebugContainer.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'var/cache/dev/App_KernelDevDebugContainer.preload.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'var/cache/dev/App_KernelDevDebugContainer.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'var/cache/dev/App_KernelDevDebugContainerCompiler.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'vendor/composer/autoload_files.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'vendor/composer/autoload_psr4.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'vendor/composer/autoload_static.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'vendor/composer/installed.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'vendor/composer/installed.php', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/composer.json b/composer.json[m
+[1mindex e67f9a1..53f7536 100644[m
+[1m--- a/composer.json[m
+[1m+++ b/composer.json[m
+[36m@@ -7,6 +7,9 @@[m
+         "php": ">=8.4",[m
+         "ext-ctype": "*",[m
+         "ext-iconv": "*",[m
+[32m+[m[32m        "doctrine/doctrine-bundle": "^3.1",[m
+[32m+[m[32m        "doctrine/doctrine-migrations-bundle": "^3.7",[m
+[32m+[m[32m        "doctrine/orm": "^3.5",[m
+         "symfony/console": "8.0.*",[m
+         "symfony/dotenv": "8.0.*",[m
+         "symfony/flex": "^2",[m
+[36m@@ -66,5 +69,8 @@[m
+             "allow-contrib": false,[m
+             "require": "8.0.*"[m
+         }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "require-dev": {[m
+[32m+[m[32m        "symfony/maker-bundle": "^1.65"[m
+     }[m
+ }[m
+[1mdiff --git a/composer.lock b/composer.lock[m
+[1mindex 687e157..6e7e489 100644[m
+[1m--- a/composer.lock[m
+[1m+++ b/composer.lock[m
+[36m@@ -4,8 +4,1116 @@[m
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",[m
+         "This file is @generated automatically"[m
+     ],[m
+[31m-    "content-hash": "464acb8afd04eeebc3950cfb10dd32b5",[m
+[32m+[m[32m    "content-hash": "0cc871e8073ec3a77f6ac5b4e7d565de",[m
+     "packages": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m            "name": "doctrine/collections",[m
+[32m+[m[32m            "version": "2.4.0",[m
+[32m+[m[32m            "source": {[m
+[32m+[m[32m                "type": "git",[m
+[32m+[m[32m                "url": "https://github.com/doctrine/collections.git",[m
+[32m+[m[32m                "reference": "9acfeea2e8666536edff3d77c531261c63680160"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "dist": {[m
+[32m+[m[32m                "type": "zip",[m
+[32m+[m[32m                "url": "https://api.github.com/repos/doctrine/collections/zipball/9acfeea2e8666536edff3d77c531261c63680160",[m
+[32m+[m[32m                "reference": "9acfeea2e8666536edff3d77c531261c63680160",[m
+[32m+[m[32m                "shasum": ""[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "require": {[m
+[32m+[m[32m                "doctrine/deprecations": "^1",[m
+[32m+[m[32m                "php": "^8.1",[m
+[32m+[m[32m                "symfony/polyfill-php84": "^1.30"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "require-dev": {[m
+[32m+[m[32m                "doctrine/coding-standard": "^14",[m
+[32m+[m[32m                "ext-json": "*",[m
+[32m+[m[32m                "phpstan/phpstan": "^2.1.30",[m
+[32m+[m[32m                "phpstan/phpstan-phpunit": "^2.0.7",[m
+[32m+[m[32m                "phpunit/phpunit": "^10.5.58 || ^11.5.42 || ^12.4"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "library",[m
+[32m+[m[32m            "autoload": {[m
+[32m+[m[32m                "psr-4": {[m
+[32m+[m[32m                    "Doctrine\\Common\\Collections\\": "src"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "notification-url": "https://packagist.org/downloads/",[m
+[32m+[m[32m            "license": [[m
+[32m+[m[32m                "MIT"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "authors": [[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Guilherme Blanco",[m
+[32m+[m[32m                    "email": "guilhermeblanco@gmail.com"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Roman Borschel",[m
+[32m+[m[32m                    "email": "roman@code-factory.org"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Benjamin Eberlei",[m
+[32m+[m[32m                    "email": "kontakt@beberlei.de"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Jonathan Wage",[m
+[32m+[m[32m                    "email": "jonwage@gmail.com"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Johannes Schmitt",[m
+[32m+[m[32m                    "email": "schmittjoh@gmail.com"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "description": "PHP Doctrine Collections library that adds additional functionality on top of PHP arrays.",[m
+[32m+[m[32m            "homepage": "https://www.doctrine-project.org/projects/collections.html",[m
+[32m+[m[32m            "keywords": [[m
+[32m+[m[32m                "array",[m
+[32m+[m[32m                "collections",[m
+[32m+[m[32m                "iterators",[m
+[32m+[m[32m                "php"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "support": {[m
+[32m+[m[32m                "issues": "https://github.com/doctrine/collections/issues",[m
+[32m+[m[32m                "source": "https://github.com/doctrine/collections/tree/2.4.0"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "funding": [[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "url": "https://www.doctrine-project.org/sponsorship.html",[m
+[32m+[m[32m                    "type": "custom"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "url": "https://www.patreon.com/phpdoctrine",[m
+[32m+[m[32m                    "type": "patreon"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fcollections",[m
+[32m+[m[32m                    "type": "tidelift"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "time": "2025-10-25T09:18:13+00:00"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m            "name": "doctrine/dbal",[m
+[32m+[m[32m            "version": "4.4.0",[m
+[32m+[m[32m            "source": {[m
+[32m+[m[32m                "type": "git",[m
+[32m+[m[32m                "url": "https://github.com/doctrine/dbal.git",[m
+[32m+[m[32m                "reference": "e8c5163fbec0f34e357431bd1e5fc4056cdf4fdc"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "dist": {[m
+[32m+[m[32m                "type": "zip",[m
+[32m+[m[32m                "url": "https://api.github.com/repos/doctrine/dbal/zipball/e8c5163fbec0f34e357431bd1e5fc4056cdf4fdc",[m
+[32m+[m[32m                "reference": "e8c5163fbec0f34e357431bd1e5fc4056cdf4fdc",[m
+[32m+[m[32m                "shasum": ""[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "require": {[m
+[32m+[m[32m                "doctrine/deprecations": "^1.1.5",[m
+[32m+[m[32m                "php": "^8.2",[m
+[32m+[m[32m                "psr/cache": "^1|^2|^3",[m
+[32m+[m[32m                "psr/log": "^1|^2|^3"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "require-dev": {[m
+[32m+[m[32m                "doctrine/coding-standard": "14.0.0",[m
+[32m+[m[32m                "fig/log-test": "^1",[m
+[32m+[m[32m                "jetbrains/phpstorm-stubs": "2023.2",[m
+[32m+[m[32m                "phpstan/phpstan": "2.1.30",[m
+[32m+[m[32m                "phpstan/phpstan-phpunit": "2.0.7",[m
+[32m+[m[32m                "phpstan/phpstan-strict-rules": "^2",[m
+[32m+[m[32m                "phpunit/phpunit": "11.5.23",[m
+[32m+[m[32m                "slevomat/coding-standard": "8.24.0",[m
+[32m+[m[32m                "squizlabs/php_codesniffer": "4.0.0",[m
+[32m+[m[32m                "symfony/cache": "^6.3.8|^7.0|^8.0",[m
+[32m+[m[32m                "symfony/console": "^5.4|^6.3|^7.0|^8.0"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "suggest": {[m
+[32m+[m[32m                "symfony/console": "For helpful console commands such as SQL execution and import of files."[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "library",[m
+[32m+[m[32m            "autoload": {[m
+[32m+[m[32m                "psr-4": {[m
+[32m+[m[32m                    "Doctrine\\DBAL\\": "src"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "notification-url": "https://packagist.org/downloads/",[m
+[32m+[m[32m            "license": [[m
+[32m+[m[32m                "MIT"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "authors": [[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Guilherme Blanco",[m
+[32m+[m[32m                    "email": "guilhermeblanco@gmail.com"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Roman Borschel",[m
+[32m+[m[32m                    "email": "roman@code-factory.org"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Benjamin Eberlei",[m
+[32m+[m[32m                    "email": "kontakt@beberlei.de"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "name": "Jonathan Wage",[m
+[32m+[m[32m                    "email": "jonwage@gmail.com"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "description": "Powerful PHP database abstraction layer (DBAL) with many features for database schema introspection and management.",[m
+[32m+[m[32m            "homepage": "https://www.doctrine-project.org/projects/dbal.html",[m
+[32m+[m[32m            "keywords": [[m
+[32m+[m[32m                "abstraction",[m
+[32m+[m[32m                "database",[m
+[32m+[m[32m                "db2",[m
+[32m+[m[32m                "dbal",[m
+[32m+[m[32m                "mariadb",[m
+[32m+[m[32m                "mssql",[m
+[32m+[m[32m                "mysql",[m
+[32m+[m[32m                "oci8",[m
+[32m+[m[32m                "oracle",[m
+[32m+[m[32m                "pdo",[m
+[32m+[m[32m                "pgsql",[m
+[32m+[m[32m                "postgresql",[m
+[32m+[m[32m                "queryobject",[m
+[32m+[m[32m                "sasql",[m
+[32m+[m[32m                "sql",[m
+[32m+[m[32m                "sqlite",[m
+[32m+[m[32m                "sqlserver",[m
+[32m+[m[32m                "sqlsrv"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "support": {[m
+[32m+[m[32m                "issues": "https://github.com/doctrine/dbal/issues",[m
+[32m+[m[32m                "source": "https://github.com/doctrine/dbal/tree/4.4.0"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "funding": [[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "url": "https://www.doctrine-project.org/sponsorship.html",[m
+[32m+[m[32m                    "type": "custom"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "url": "https://www.patreon.com/phpdoctrine",[m
+[32m+[m[32m                    "type": "patreon"[m
+[32m+[m[32m                },[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdbal",[m
+[32m+[m[32m                    "type": "tidelift"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "time": "2025-11-29T12:17:09+00:00"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m            "name": "doctrine/deprecations",[m
+[32m+[m[32m            "version": "1.1.5",[m
+[32m+[m[32m            "source": {[m
+[32m+[m[32m                "type": "git",[m
+[32m+[m[32m                "url": "https://github.com/doctrine/deprecations.git",[m
+[32m+[m[32m                "reference": "459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "dist": {[m
+[32m+[m[32m                "type": "zip",[m
+[32m+[m[32m                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38",[m
+[32m+[m[32m                "reference": "459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38",[m
+[32m+[m[32m                "shasum": ""[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "require": {[m
+[32m+[m[32m                "php": "^7.1 || ^8.0"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "conflict": {[m
+[32m+[m[32m                "phpunit/phpunit": "<=7.5 || >=13"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "require-dev": {[m
+[32m+[m[32m                "doctrine/coding-standard": "^9 || ^12 || ^13",[m
+[32m+[m[32m                "phpstan/phpstan": "1.4.10 || 2.1.11",[m
+[32m+[m[32m                "phpstan/phpstan-phpunit": "^1.0 || ^2",[m
+[32m+[m[32m                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12",[m
+[32m+[m[32m                "psr/log": "^1 || ^2 || ^3"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "suggest": {[m
+[32m+[m[32m                "psr/log": "Allows logging deprecations via PSR-3 logger implementation"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "type": "library",[m
+[32m+[m[32m            "autoload": {[m
+[32m+[m[32m                "psr-4": {[m
+[32m+[m[32m                    "Doctrine\\Deprecations\\": "src"[m
+[32m+[m[32m                }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "notification-url": "https://packagist.org/downloads/",[m
+[32m+[m[32m            "license": [[m
+[32m+[m[32m                "MIT"[m
+[32m+[m[32m            ],[m
+[32m+[m[32m            "description": "A small layer on top of trigger_error(E_USER_DEPRECATED) or PSR-3 logging with options to disable all deprecations or selectively for packages.",[m
+[32m+[m[32m            "homepage": "https://www.doctrine-project.org/",[m
+[32m+[m[32m            "support": {[m
+[32m+[m[32m                "issues": "https://github.com/doctrine/deprecations/issues",[m
+[32m+[m[32m                "source": "https://github.com/doctrine/deprecations/tree/1.1.5"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "time": "2025-04-07T20:06:18+00:00"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        {[m
+[32m+[m[32m            "name": "doctrine/doctrine-bundle",[m
+[32m+[m[32m            "version": "3.1.0",[m
+[32m+[m[32m            "source": {[m
+[32m+[m[32m                "type": "git",[m
+[32m+[m[32m                "url": "https://github.com/doctrine/DoctrineBundle.git",[m
+[32m+[m[32m                "reference": "24417f4d508086e1a458cc7aea893853ba9e4423"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "dist": {[m
+[32m+[m[32m                "type": "zip",[m
+[32m+[m[32m                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/24417f4d508086e1a458cc7aea893853ba9e4423",[m
+[32m+[m[32m                "reference": "24417f4d508086e1a458cc7aea893853ba9e4423",[m
+[32m+[m[32m                "shasum": ""[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "require": {[m
+[32m+[m[32m                "doctrine/dbal": "^4.0",[m
+[32m+[m[32m                "doctrine/deprecations": "^1.0",[m
+[32m+[m[32m                "doctrine/persistence": "^4",[m
+[32m+[m[32m                "doctrine/sql-formatter": "^1.0.1",[m
+[32m+[m[32m                "php": "^8.4",[m
+[32m+[m[32m                "symfony/cache": "^6.4 || ^7.0 || ^8.0",[m
+[32m+[m[32m                "symfony/config": "^6.4 || ^7.0 || ^8.0",[m
+[32m+[m[32m                "symfony/console": "^6.4 || ^7.0 || ^8.0",[m
+[32m+[m[32m                "symfony/dependency-injection": "^6.4 || ^7.0 || ^8.0",[m
+[32m+[m[32m                "symfony/doctrine-bridge": "^6.4.3 || ^7.0.3 || ^8.0",[m
+[32m+[m[32m                "symfony/framework-bundle": "^6.4 || ^7.0 || ^8.0",[m
+[32m+[m[32m                "symfony/service-contracts": "^3"[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "conflict": {[m
+[32m+[m[32m                "doctrine/orm": "<3.0 || >=4.0",[m
+[32m+
