@@ -9,3 +9,8 @@
     try_files {path} {path}/ /index.php?{query}
 }
 
+
+
+
+
+

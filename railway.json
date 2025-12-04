@@ -4,8 +4,7 @@
     "builder": "railpack"
   },
   "deploy": {
-    "startCommand": "",
-    "healthcheckPath": "/"
+    "startCommand": ""
   }
 }
 
