@@ -1,47 +1,34 @@
-# Dockerfile pour Symfony
+# Symfony Dev Dockerfile minimal
 FROM php:8.4-apache
 
 # Variables d'environnement
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV SYMFONY_ENV=dev
 
-# Installation des dépendances système
+# Installer les extensions PHP nécessaires pour Symfony + MySQL
 RUN apt-get update && apt-get install -y \
     git \
-    curl \
+    unzip \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
-    unzip \
     libzip-dev \
     libicu-dev \
-    && docker-php-ext-install pdo_mysql mysqli mbstring exif pcntl bcmath gd zip intl opcache \
+    && docker-php-ext-install pdo_mysql mbstring gd intl zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Configuration d'Apache pour Symfony
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
-    && a2enmod rewrite
+# Activer Apache mod_rewrite
+RUN a2enmod rewrite
 
-# Installation de Composer
+# Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Configuration PHP pour Symfony
-RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory.ini \
-    && echo "upload_max_filesize=64M" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "post_max_size=64M" >> /usr/local/etc/php/conf.d/uploads.ini
-
-# Configuration OPcache pour la production
+# Désactiver OPcache pour le développement
 RUN { \
-        echo 'opcache.enable=1'; \
-        echo 'opcache.memory_consumption=256'; \
-        echo 'opcache.interned_strings_buffer=8'; \
-        echo 'opcache.max_accelerated_files=20000'; \
-        echo 'opcache.validate_timestamps=0'; \
-        echo 'opcache.save_comments=1'; \
-        echo 'opcache.fast_shutdown=1'; \
-    } > /usr/local/etc/php/conf.d/opcache-recommended.ini
+        echo 'opcache.enable=0'; \
+        echo 'opcache.enable_cli=0'; \
+    } > /usr/local/etc/php/conf.d/opcache-dev.ini
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
@@ -49,17 +36,15 @@ WORKDIR /var/www/html
 # Copier les fichiers de l'application
 COPY . /var/www/html
 
-# Installation des dépendances Composer (si composer.json existe)
-# --no-scripts : évite l'exécution des scripts post-install qui nécessitent .env
-RUN if [ -f composer.json ]; then composer install --optimize-autoloader --no-interaction --no-scripts; fi
+# Installer les dépendances Composer
+RUN if [ -f composer.json ]; then composer install --no-interaction; fi
 
-# Permissions
+# Permissions correctes pour Apache
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Port exposé
+# Port exposé pour Apache
 EXPOSE 80
 
-# Commande par défaut
+# Lancer Apache en foreground
 CMD ["apache2-foreground"]
-
