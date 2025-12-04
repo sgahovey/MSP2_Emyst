@@ -1,8 +1,8 @@
 .git
 .gitignore
-.env
-.env.local
-var/
-vendor/
+# .env
+# .env.local
+# var/
+# vendor/
 *.log
 .dockerignore
