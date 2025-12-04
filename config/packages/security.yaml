@@ -21,7 +21,7 @@ security:
             provider: app_user_provider
             form_login:
                 login_path: app_login
-                check_path: app_login
+                check_path: /login
                 enable_csrf: true
             logout:
                 path: app_logout
@@ -36,8 +36,8 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        - { path: ^/login, roles: PUBLIC_ACCES }
-        - { path: ^/, roles: PUBLIC_ACCES }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: PUBLIC_ACCESS }
 
         # - { path: ^/profile, roles: ROLE_USER }
 

@@ -22,7 +22,13 @@ RUN apt-get update && apt-get install -y \
 # Configuration d'Apache pour Symfony
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
-    && a2enmod rewrite
+    && a2enmod rewrite \
+    && echo '<Directory ${APACHE_DOCUMENT_ROOT}>' > /etc/apache2/conf-available/symfony.conf \
+    && echo '    Options -Indexes +FollowSymLinks' >> /etc/apache2/conf-available/symfony.conf \
+    && echo '    AllowOverride All' >> /etc/apache2/conf-available/symfony.conf \
+    && echo '    Require all granted' >> /etc/apache2/conf-available/symfony.conf \
+    && echo '</Directory>' >> /etc/apache2/conf-available/symfony.conf \
+    && a2enconf symfony
 
 # Installation de Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
