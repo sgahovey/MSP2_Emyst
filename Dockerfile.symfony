@@ -36,15 +36,11 @@ WORKDIR /var/www/html
 # Copier les fichiers de l'application
 COPY . /var/www/html
 
+# 📌 IMPORTANT : créer un .env si absent (fixe ton erreur)
+RUN if [ ! -f .env ]; then cp .env.example .env; fi
+
 # Installer les dépendances Composer
 RUN if [ -f composer.json ]; then composer install --no-interaction; fi
 
 # Permissions correctes pour Apache
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
-
-# Port exposé pour Apache
-EXPOSE 80
-
-# Lancer Apache en foreground
-CMD ["apache2-foreground"]
+RUN chown -R

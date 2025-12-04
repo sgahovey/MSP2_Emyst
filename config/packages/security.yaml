@@ -12,10 +12,6 @@ security:
                 property: email
 
     firewalls:
-        dev:
-            # Ensure dev tools and static assets are always allowed
-            pattern: ^/(_profiler|_wdt|assets|build)/
-            security: false
         main:
             lazy: true
             provider: app_user_provider
@@ -25,6 +21,7 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
+
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -36,7 +33,7 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: PUBLIC_ACCESS  }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
