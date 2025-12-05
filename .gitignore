@@ -1,0 +1,7 @@
+# Ne pas versionner le cache, logs, sessions
+/var/cache/
+/var/log/
+/var/sessions/
+/var/test/
+/var/tmp/
+/var/backups/
