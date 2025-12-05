@@ -32,6 +32,10 @@ class Seance
     #[ORM\OneToMany(targetEntity: SeanceExercice::class, mappedBy: 'seances')]
     private Collection $seanceExercices;
 
+    #[ORM\ManyToOne(inversedBy: 'seances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->seanceExercices = new ArrayCollection();
