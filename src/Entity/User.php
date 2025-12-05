@@ -8,6 +8,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -59,8 +61,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->roles = ['ROLE_USER'];
         $this->date_creation = new \DateTimeImmutable();
-        $this->seances = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->objectifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->seances = new ArrayCollection();
+        $this->objectifs = new ArrayCollection();
     }
 
     public function getId(): ?int

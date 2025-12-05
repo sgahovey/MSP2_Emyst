@@ -62,17 +62,15 @@ class __TwigTemplate_3b09d9687286c4e600dd425325ff9ae4 extends Template
         // line 7
         yield from $this->unwrap()->yieldBlock('stylesheets', $context, $blocks);
         // line 15
-        yield "            <h1> Test </h1>
-        ";
-        // line 16
+        yield "        ";
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
-        // line 18
+        // line 17
         yield "    </head>
     <body>
         ";
-        // line 20
+        // line 19
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
-        // line 21
+        // line 20
         yield "    </body>
 </html>
 ";
@@ -155,7 +153,7 @@ class __TwigTemplate_3b09d9687286c4e600dd425325ff9ae4 extends Template
         yield from [];
     }
 
-    // line 16
+    // line 15
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -168,7 +166,7 @@ class __TwigTemplate_3b09d9687286c4e600dd425325ff9ae4 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 17
+        // line 16
         yield "        ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -179,7 +177,7 @@ class __TwigTemplate_3b09d9687286c4e600dd425325ff9ae4 extends Template
         yield from [];
     }
 
-    // line 20
+    // line 19
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -214,7 +212,7 @@ class __TwigTemplate_3b09d9687286c4e600dd425325ff9ae4 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  183 => 20,  172 => 17,  159 => 16,  146 => 13,  142 => 12,  138 => 11,  134 => 10,  130 => 9,  125 => 8,  112 => 7,  89 => 5,  76 => 21,  74 => 20,  70 => 18,  68 => 16,  65 => 15,  63 => 7,  58 => 5,  52 => 1,);
+        return array (  181 => 19,  170 => 16,  157 => 15,  144 => 13,  140 => 12,  136 => 11,  132 => 10,  128 => 9,  123 => 8,  110 => 7,  87 => 5,  74 => 20,  72 => 19,  68 => 17,  65 => 15,  63 => 7,  58 => 5,  52 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -233,7 +231,6 @@ class __TwigTemplate_3b09d9687286c4e600dd425325ff9ae4 extends Template
             <link rel=\"stylesheet\" href=\"{{ asset('css/pages.css') }}\">
             <link rel=\"stylesheet\" href=\"{{ asset('css/utilities.css') }}\">
         {% endblock %}
-            <h1> Test </h1>
         {% block javascripts %}
         {% endblock %}
     </head>
