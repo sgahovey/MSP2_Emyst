@@ -1,0 +1,47 @@
+/* ===========================
+   components.css
+   =========================== */
+
+.card {
+  background: var(--glass);
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.card h3 {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* KPI */
+.kpi { display: flex; gap: 12px; align-items: center; }
+.kpi .value { font-size: 20px; font-weight: 700; }
+
+/* Charts */
+.chart-placeholder {
+  height: 220px;
+  border-radius: 10px;
+  border: 1px dashed rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px dashed rgba(255,255,255,0.03);
+  font-size: 14px;
+}
+
+.small { font-size: 13px; color: var(--muted); }

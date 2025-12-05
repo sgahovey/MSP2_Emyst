@@ -1,0 +1,53 @@
+/* ===========================
+   forms.css
+   =========================== */
+
+form { display: flex; flex-direction: column; gap: 10px; }
+
+label { font-size: 13px; color: var(--muted); }
+
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=date],
+input[type=time],
+select,
+textarea {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 10px;
+  border-radius: 8px;
+  color: #e6eef6;
+}
+
+textarea { min-height: 100px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #042;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #e6eef6;
+}
+
+/* Exercise list */
+.ex-list { display: flex; flex-direction: column; gap: 8px; }
+.ex-row { display: flex; gap: 8px; align-items: center; }
+.ex-row input { flex: 1; }
+
+/* Filters */
+.filters { display: flex; gap: 8px; align-items: center; }

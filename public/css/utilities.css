@@ -1,0 +1,12 @@
+/* ===========================
+   utilities.css
+   =========================== */
+
+.muted { color: var(--muted); font-size: 13px; }
+
+.hidden { display: none; }
+
+.hint {
+  font-size: 13px;
+  color: var(--muted);
+}
