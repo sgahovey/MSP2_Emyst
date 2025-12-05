@@ -13,7 +13,9 @@ services:
     depends_on:
       - mysql
     environment:
-      - DATABASE_URL=mysql://${MYSQL_USER:-emyst_user}:${MYSQL_PASSWORD:-Emyst_S3cur3_P@ss_2024!}@mysql:3306/${MYSQL_DATABASE:-emyst_db}?serverVersion=8.0
+     - APP_ENV=dev
+     - APP_DEBUG=1
+     - DATABASE_URL=mysql://${MYSQL_USER:-emyst_user}:${MYSQL_PASSWORD:-Emyst_S3cur3_P@ss_2024!}@mysql:3306/${MYSQL_DATABASE:-emyst_db}?serverVersion=8.0
     networks:
       - emyst_network
 

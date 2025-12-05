@@ -70,6 +70,7 @@ class ComposerStaticInit7246353e5bb23c8719402c051dcd5671
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\Clock\\' => 24,
             'Symfony\\Component\\Cache\\' => 24,
+            'Symfony\\Bundle\\WebProfilerBundle\\' => 33,
             'Symfony\\Bundle\\TwigBundle\\' => 26,
             'Symfony\\Bundle\\SecurityBundle\\' => 30,
             'Symfony\\Bundle\\MakerBundle\\' => 27,
@@ -277,6 +278,10 @@ class ComposerStaticInit7246353e5bb23c8719402c051dcd5671
         'Symfony\\Component\\Cache\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
+        ),
+        'Symfony\\Bundle\\WebProfilerBundle\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/symfony/web-profiler-bundle',
         ),
         'Symfony\\Bundle\\TwigBundle\\' =>
         array (
