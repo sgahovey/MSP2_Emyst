@@ -40,8 +40,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $poids = null; // Poids en kg
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $date_creation = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private \DateTimeImmutable $date_creation;
 
     /**
      * @var Collection<int, Seance>
@@ -59,8 +59,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->roles = ['ROLE_USER'];
         $this->date_creation = new \DateTimeImmutable();
-        $this->seances = new ArrayCollection();
-        $this->objectifs = new ArrayCollection();
+        $this->seances = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->objectifs = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId(): ?int
