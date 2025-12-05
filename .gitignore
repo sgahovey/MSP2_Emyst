@@ -5,3 +5,8 @@
 /var/test/
 /var/tmp/
 /var/backups/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
