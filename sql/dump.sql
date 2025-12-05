@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 03, 2025 at 04:49 PM
+-- Generation Time: Dec 05, 2025 at 10:24 AM
 -- Server version: 8.0.44
 -- PHP Version: 8.2.18
 
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20251203105914', '2025-12-03 11:00:29', 925);
+('DoctrineMigrations\\Version20251203105914', '2025-12-03 11:00:29', 925),
+('DoctrineMigrations\\Version20251205070451', '2025-12-05 07:05:02', 98);
 
 -- --------------------------------------------------------
 
@@ -71,7 +72,9 @@ CREATE TABLE IF NOT EXISTS `objectif` (
   `valeur_cible` int NOT NULL,
   `date_limite` datetime NOT NULL,
   `type_objectif` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_E2F86851A76ED395` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -86,7 +89,9 @@ CREATE TABLE IF NOT EXISTS `seance` (
   `date_entrainement` datetime NOT NULL,
   `type_seance` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `durée` time NOT NULL,
-  PRIMARY KEY (`id`)
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_DF7DFD0EA76ED395` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -118,13 +123,35 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `taille` double DEFAULT NULL,
+  `poids` double DEFAULT NULL,
+  `date_creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `taille`, `poids`, `date_creation`) VALUES
+(1, 'ee@gmail.com', '[]', '$2y$13$bDBBws22x5ftbqOZBlgc3e8sfpVkvJZPsu3.zxj2245UrB6tJo4kS', NULL, NULL, '2025-12-05 07:05:02');
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `objectif`
+--
+ALTER TABLE `objectif`
+  ADD CONSTRAINT `FK_E2F86851A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `seance`
+--
+ALTER TABLE `seance`
+  ADD CONSTRAINT `FK_DF7DFD0EA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `seance_exercice`
