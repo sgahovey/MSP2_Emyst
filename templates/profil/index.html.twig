@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ path('app_profil') }}">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_edit_password') }}">Sécurité</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card-body">
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    
+                    <h2 class="mb-4">Profil</h2>
+                    
+                    {{ form_start(profilForm, {'attr': {'class': 'form'}}) }}
+                        <div class="mb-3">
+                            {{ form_label(profilForm.name, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(profilForm.name, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(profilForm.name) }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form_label(profilForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(profilForm.email, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(profilForm.email) }}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('app_home') }}" class="btn btn-secondary">Annuler</a>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    {{ form_end(profilForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
