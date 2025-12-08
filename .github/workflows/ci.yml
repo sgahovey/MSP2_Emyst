@@ -58,9 +58,19 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+        continue-on-error: true
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
+        run: |
+          composer validate --no-check-publish
+          composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-scripts
+          # Vérifier et forcer l'installation de symfony/polyfill-uuid si manquant
+          if [ ! -f "vendor/symfony/polyfill-uuid/bootstrap.php" ]; then
+            echo "Warning: symfony/polyfill-uuid missing, reinstalling dependencies..."
+            composer update symfony/polyfill-uuid --no-interaction --optimize-autoloader
+          fi
+          composer dump-autoload --optimize
+          composer run-script post-install-cmd
 
       - name: Create .env file
         run: |
@@ -92,7 +102,9 @@ jobs:
           tools: composer
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
+        run: |
+          composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-scripts
+          composer dump-autoload --optimize
 
       - name: Check syntax
         run: |
@@ -113,7 +125,9 @@ jobs:
           tools: composer
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
+        run: |
+          composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-scripts
+          composer dump-autoload --optimize
 
       - name: Check for known vulnerabilities
         run: |
