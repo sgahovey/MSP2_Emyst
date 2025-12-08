@@ -60,7 +60,8 @@ jobs:
       - name: Install dependencies (no update, no scripts)
         run: |
           composer validate --no-check-publish
-          composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          rm -rf vendor
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts --no-plugins
           composer dump-autoload --optimize
 
       - name: Create .env.test
@@ -94,7 +95,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          rm -rf vendor
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts --no-plugins
           composer dump-autoload --optimize
 
       - name: Syntax check
@@ -117,8 +119,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          rm -rf vendor
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts --no-plugins
           composer dump-autoload --optimize
 
       - name: Check vulnerabilities
         run: composer audit || echo "Composer audit completed with warnings"
+
