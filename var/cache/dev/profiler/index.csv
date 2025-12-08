@@ -25,3 +25,5 @@ b7eb4e,172.25.0.1,GET,http://localhost:8000/logout,1764916420,,302,request
 >>>>>>> c6ee5d641504a9343fff78c28e01a1e077b40e67
 c7c8bc,172.20.0.1,GET,http://localhost:8000/seance,1765177209,6bf640,500,request
 6bf640,172.20.0.1,GET,http://localhost:8000/seance,1765177210,,500,request
+28e369,172.20.0.1,GET,http://localhost:8000/seance,1765183326,d871e5,500,request
+d871e5,172.20.0.1,GET,http://localhost:8000/seance,1765183326,,500,request

@@ -1,12 +1,24 @@
-# Ne pas versionner le cache, logs, sessions
-/var/cache/
-/var/log/
-/var/sessions/
-/var/test/
-/var/tmp/
-/var/backups/
+# --- Symfony ---
+/var/
+/vendor/
 
-###> phpunit/phpunit ###
+# --- Environment files ---
+/.env.local
+/.env.local.php
+/.env.*.local
+
+# --- IDE / éditeur ---
+/.idea/
+/.vscode/
+
+# --- Node / Front ---
+/node_modules/
+/public/build/
+
+# --- PHPUnit ---
 /phpunit.xml
 /.phpunit.cache/
-###< phpunit/phpunit ###
+
+# --- OS Files ---
+.DS_Store
+Thumbs.db
