@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Seance;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,10 +18,6 @@ class SeanceType extends AbstractType
             ->add('type_seance')
             ->add('duree', null, [
                 'widget' => 'single_text',
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
             ])
         ;
     }

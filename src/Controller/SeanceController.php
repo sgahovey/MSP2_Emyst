@@ -26,6 +26,9 @@ final class SeanceController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $seance = new Seance();
+        $user = $this->getUser();
+        $seance->setUser($user);
+        
         $form = $this->createForm(SeanceType::class, $seance);
         $form->handleRequest($request);
 
