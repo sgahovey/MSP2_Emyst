@@ -45,29 +45,12 @@ jobs:
           coverage: none
           tools: composer
 
-      - name: Get composer cache directory
-        id: composer-cache
-        shell: bash
+      - name: Install dependencies (no update)
         run: |
-          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Composer packages
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-        continue-on-error: true
-
-      - name: Install dependencies
-        run: |
-          composer validate --no-check-publish
-          composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-scripts
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts --no-update
           composer dump-autoload --optimize
-          composer run-script post-install-cmd
 
-      - name: Create .env file
+      - name: Create .env.test
         run: |
           echo "APP_ENV=test" > .env.test
           echo "DATABASE_URL=mysql://emyst_user:test_password@127.0.0.1:3306/emyst_db?serverVersion=8.0" >> .env.test
@@ -85,7 +68,7 @@ jobs:
   lint:
     name: Lint PHP
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -97,9 +80,9 @@ jobs:
           extensions: mbstring, xml, ctype, iconv, intl
           tools: composer
 
-      - name: Install dependencies
+      - name: Install dependencies (no update)
         run: |
-          composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts --no-update
           composer dump-autoload --optimize
 
       - name: Check syntax
@@ -110,7 +93,7 @@ jobs:
   security:
     name: Security Check
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -121,9 +104,9 @@ jobs:
           php-version: '8.4'
           tools: composer
 
-      - name: Install dependencies
+      - name: Install dependencies (no update)
         run: |
-          composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts --no-update
           composer dump-autoload --optimize
 
       - name: Check for known vulnerabilities
