@@ -81,6 +81,7 @@ jobs:
       - name: Validate database schema
         run: php bin/console doctrine:schema:validate --env=test --no-interaction || true
 
+
   lint:
     name: Lint PHP
     runs-on: ubuntu-latest
@@ -98,12 +99,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-scripts
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts
           composer dump-autoload --optimize
 
       - name: Check syntax
         run: |
           find src -type f -name "*.php" -exec php -l {} \;
+
 
   security:
     name: Security Check
@@ -121,10 +123,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer install --prefer-dist --no-progress --no-interaction --no-scripts --no-autoloader
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts
           composer dump-autoload --optimize
 
       - name: Check for known vulnerabilities
         run: |
           composer audit || echo "Composer audit completed with warnings (if any)"
-
