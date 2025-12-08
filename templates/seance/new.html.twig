@@ -1,11 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Seance{% endblock %}
+{% block title %}Créer une séance{% endblock %}
 
 {% block body %}
-    <h1>Create new Seance</h1>
+<div class="container seance-new-container" style="max-width: 1400px;">
+    <div class="row g-4">
+        <!-- ==========================
+             COLONNE GAUCHE (FORMULAIRE)
+        =========================== -->
+        <div class="col-lg-8">
+            <div class="seance-new-header">
+                <h1 class="seance-new-title">Créer une séance</h1>
+                <p class="seance-new-subtitle">Définissez les détails et ajoutez des exercices</p>
+            </div>
 
-    {{ include('seance/_form.html.twig') }}
+            <div class="seance-form-card">
+                {{ form_start(form, { attr: { class: 'seance-form' } }) }}
 
-    <a href="{{ path('app_seance_index') }}">back to list</a>
+                <div class="form-group">
+                    {{ form_label(form.date_entrainement, "Date", { label_attr: { class: 'form-label' } }) }}
+                    {{ form_widget(form.date_entrainement, { attr: { class: 'form-control' } }) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.type_seance, "Type", { label_attr: { class: 'form-label' } }) }}
+                    {{ form_widget(form.type_seance, { attr: { class: 'form-control' } }) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.duree, "Durée", { label_attr: { class: 'form-label' } }) }}
+                    {{ form_widget(form.duree, { attr: { class: 'form-control' } }) }}
+                </div>
+
+                <div class="exercices-section">
+                    <h3 class="exercices-title">Exercices</h3>
+                    <p class="exercices-placeholder">Les exercices seront ajoutés ici</p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-add-exercise">Ajouter un exercice</button>
+                    <button type="submit" class="btn btn-save-seance">Enregistrer la séance</button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+        <!-- ==========================
+             COLONNE DROITE (RÉCAPITULATIF)
+        =========================== -->
+        <div class="col-lg-4">
+            <div class="seance-summary-card">
+                <div class="summary-header">
+                    <a href="{{ path('app_seance_index') }}" class="btn btn-view-history">Voir l'historique</a>
+                </div>
+                
+                <div class="summary-content">
+                    <h3 class="summary-title">Récapitulatif</h3>
+                    <p class="summary-subtitle">Informations rapides sur la séance en cours (temps estimé, charge estimée)</p>
+                    
+                    <div class="summary-item">
+                        <span class="summary-label">Temps estimé</span>
+                        <span class="summary-value">--:--</span>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span class="summary-label">Charge estimée</span>
+                        <span class="summary-value">0 kg</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

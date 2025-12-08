@@ -28,3 +28,8 @@ body {
   display: flex;
   justify-content: center;
 }
+
+/* Titres principaux de page en blanc */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+}
