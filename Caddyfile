@@ -2,9 +2,10 @@
     auto_https off
 }
 
-{$PORT:8080} {
+:8080 {
     root * /app/public
     php_server
     file_server
     try_files {path} {path}/ /index.php?{query}
 }
+
