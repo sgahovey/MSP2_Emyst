@@ -126,7 +126,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-scripts
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts --no-autoloader
           composer dump-autoload --optimize
 
       - name: Check for known vulnerabilities
