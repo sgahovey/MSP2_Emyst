@@ -19,10 +19,8 @@ class ObjectifType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('type_objectif')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            // ❌ On supprime complètement :
+            // ->add('user', EntityType::class, [...])
         ;
     }
 
@@ -33,3 +31,4 @@ class ObjectifType extends AbstractType
         ]);
     }
 }
+

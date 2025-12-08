@@ -1,39 +1,99 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Objectif index{% endblock %}
+{% block title %}Objectifs sportifs{% endblock %}
 
 {% block body %}
-    <h1>Objectif index</h1>
+<div class="container p-4" style="max-width: 1200px;">
+    <h1 class="mb-4">Objectifs sportifs</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Valeur_cible</th>
-                <th>Date_limite</th>
-                <th>Type_objectif</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for objectif in objectifs %}
-            <tr>
-                <td>{{ objectif.id }}</td>
-                <td>{{ objectif.valeurCible }}</td>
-                <td>{{ objectif.dateLimite ? objectif.dateLimite|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ objectif.typeObjectif }}</td>
-                <td>
-                    <a href="{{ path('app_objectif_show', {'id': objectif.id}) }}">show</a>
-                    <a href="{{ path('app_objectif_edit', {'id': objectif.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row g-4">
+        <!-- ==========================
+             COLONNE GAUCHE (8)
+        =========================== -->
+        <div class="col-md-8">
 
-    <a href="{{ path('app_objectif_new') }}">Create new</a>
+            <!-- Mes objectifs -->
+            <div class="card p-3 mb-4 objectifs-card">
+                <h4 class="mb-3">Mes objectifs</h4>
+
+                <table class="table table-dark table-striped objectifs-table">
+                    <thead>
+                        <tr>
+                            <th>Objectif</th>
+                            <th>Valeur cible</th>
+                            <th>Échéance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for objectif in objectifs %}
+                        <tr>
+                            <td>{{ objectif.typeObjectif ? objectif.typeObjectif.value : '' }}</td>
+                            <td>{{ objectif.valeurCible }}</td>
+                            <td>{{ objectif.dateLimite ? objectif.dateLimite|date('Y-m-d') : '' }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="{{ path('app_objectif_index', { edit: objectif.id }) }}">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Aucun objectif pour le moment.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a class="btn btn-success mt-2" href="{{ path('app_objectif_new') }}">Nouvel objectif</a>
+            </div>
+
+            <!-- Progression -->
+            <div class="card p-3 objectifs-card">
+                <h4 class="mb-3">Progression par objectif</h4>
+                <div class="progression-placeholder" style="min-height:200px;">
+                    Graphique par objectif (placeholder)
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================
+             COLONNE DROITE (FORMULAIRE)
+        =========================== -->
+        <div class="col-md-4">
+            <div class="card p-3 form-card" style="position: sticky; top: 20px;">
+                <h4 class="mb-3">
+                    {% if editMode %}
+                        Modifier un objectif
+                    {% else %}
+                        Créer un objectif
+                    {% endif %}
+                </h4>
+
+
+                {{ form_start(form) }}
+
+                <div class="mb-3">
+                    {{ form_label(form.type_objectif, "Type d'objectif") }}
+                    {{ form_widget(form.type_objectif, { attr: { class: 'form-control' } }) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.valeur_cible, "Valeur cible") }}
+                    {{ form_widget(form.valeur_cible, { attr: { class: 'form-control' } }) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.date_limite, "Échéance") }}
+                    {{ form_widget(form.date_limite, { attr: { class: 'form-control' } }) }}
+                </div>
+
+                <div class="d-flex">
+                    <button class="btn btn-primary">Enregistrer</button>
+                    <a href="{{ path('app_objectif_index') }}" class="btn btn-secondary ms-2">Annuler</a>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
