@@ -7,16 +7,6 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('app_profil') }}">Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_edit_password') }}">Sécurité</a>
-                        </li>
-                    </ul>
-                </div>
                 
                 <div class="card-body">
                     {% for message in app.flashes('success') %}
@@ -29,22 +19,33 @@
                     
                     {{ form_start(profilForm, {'attr': {'class': 'form'}}) }}
                         <div class="mb-3">
+                            {{ form_label(profilForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(profilForm.email, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(profilForm.email) }}
+                        </div>
+
+                        <div class="mb-3">
                             {{ form_label(profilForm.name, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
                             {{ form_widget(profilForm.name, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(profilForm.name) }}
                         </div>
                         
-                        <div class="mb-3">
-                            {{ form_label(profilForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(profilForm.email, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_errors(profilForm.email) }}
-                        </div>
-                        
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ path('app_home') }}" class="btn btn-secondary">Annuler</a>
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary flex-grow-1" type="submit">Enregistrer</button>                           
                         </div>
                     {{ form_end(profilForm) }}
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                
+                <div class="card-body">
+                    
+                    <h2 class="mb-4">Sécurité</h2>
+                    
+                    <a href="{{ path('app_edit_password') }}" class="btn btn-secondary flex-grow-1">
+                    Modifier le mot de passe
+                    </a>
                 </div>
             </div>
         </div>
