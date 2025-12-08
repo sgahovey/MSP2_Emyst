@@ -1,22 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    {{ form_start(registrationForm, {'attr': {'class': 'form-signin'}}) }}
+        {% if form_errors(registrationForm) %}
+            <div class="alert alert-danger">{{ form_errors(registrationForm) }}</div>
+        {% endif %}
 
-    {{ form_errors(registrationForm) }}
+        <div class="card p-3 mb-4 objectifs-card" style="max-width: 500px; margin: 0 auto;">
+            <h1 class="h3 mb-3 font-weight-normal text-white">Inscription</h1>
+            
+            <div class="form-group">
+                {{ form_label(registrationForm.name, 'Nom complet') }}
+                {{ form_widget(registrationForm.name, {
+                    'attr': {
+                        'class': 'form-control',
+                        'autofocus': 'autofocus',
+                        'required': 'required'
+                    }
+                }) }}
+            </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.taille) }}
-        {{ form_row(registrationForm.poids) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            <div class="form-group">
+                {{ form_label(registrationForm.email, 'Email') }}
+                {{ form_widget(registrationForm.email, {
+                    'attr': {
+                        'class': 'form-control',
+                        'required': 'required'
+                    }
+                }) }}
+            </div>
 
-        <button type="submit" class="btn">Register</button>
+            <div class="form-group">
+                {{ form_label(registrationForm.taille, 'Taille (cm)') }}
+                {{ form_widget(registrationForm.taille, {
+                    'attr': {
+                        'class': 'form-control',
+                        'required': 'required',
+                        'min': 100,
+                        'max': 250
+                    }
+                }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.poids, 'Poids (kg)') }}
+                {{ form_widget(registrationForm.poids, {
+                    'attr': {
+                        'class': 'form-control',
+                        'required': 'required',
+                        'min': 30,
+                        'max': 300,
+                        'step': '0.1'
+                    }
+                }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+                {{ form_widget(registrationForm.plainPassword, {
+                    'attr': {
+                        'class': 'form-control',
+                        'required': 'required'
+                    }
+                }) }}
+            </div>
+
+<div class="d-flex gap-2">
+                <button class="btn btn-primary flex-grow-1" type="submit">
+                    S'inscrire
+                </button>
+                <a href="{{ path('app_login') }}" class="btn btn-secondary flex-grow-1">
+                    J'ai déjà un compte
+                </a>
+            </div>
+        </div>
     {{ form_end(registrationForm) }}
 {% endblock %}

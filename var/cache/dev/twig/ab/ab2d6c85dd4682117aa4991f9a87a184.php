@@ -73,7 +73,7 @@ class __TwigTemplate_7b1aee6c1e4f1d2dd956e5fe119b48b9 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Log in!";
+        yield "Connexion";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -109,43 +109,55 @@ class __TwigTemplate_7b1aee6c1e4f1d2dd956e5fe119b48b9 extends Template
         }
         // line 10
         yield "
-        ";
-        // line 11
-        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 11, $this->source); })()), "user", [], "any", false, false, false, 11)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 12
-            yield "            <div class=\"mb-3\">
-                You are logged in as ";
-            // line 13
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 13, $this->source); })()), "user", [], "any", false, false, false, 13), "userIdentifier", [], "any", false, false, false, 13), "html", null, true);
-            yield ", <a href=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\LogoutUrlExtension']->getLogoutPath(), "html", null, true);
-            yield "\">Logout</a>
+        <div class=\"card p-3 mb-4 objectifs-card\" style=\"max-width: 500px; margin: 0 auto;\">
+            <h1 class=\"h3 mb-3 font-weight-normal text-white\">Connexion</h1>
+            
+            <div class=\"form-group\">
+                <label for=\"username\">Email</label>
+                <input type=\"email\" 
+                       value=\"";
+        // line 17
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 17, $this->source); })()), "html", null, true);
+        yield "\" 
+                       name=\"_username\" 
+                       id=\"username\" 
+                       class=\"form-control\" 
+                       autocomplete=\"email\" 
+                       required 
+                       autofocus>
             </div>
-        ";
-        }
-        // line 16
-        yield "
-        <h1 class=\"h3 mb-3 font-weight-normal\">Please sign in</h1>
-        <label for=\"username\">Email</label>
-        <input type=\"email\" value=\"";
-        // line 19
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 19, $this->source); })()), "html", null, true);
-        yield "\" name=\"_username\" id=\"username\" class=\"form-control\" autocomplete=\"email\" required autofocus>
-        <label for=\"password\">Password</label>
-        <input type=\"password\" name=\"_password\" id=\"password\" class=\"form-control\" autocomplete=\"current-password\" required>
-        <input type=\"hidden\" name=\"_csrf_token\" data-controller=\"csrf-protection\" value=\"";
-        // line 22
+
+            <div class=\"form-group\">
+                <label for=\"password\">Mot de passe</label>
+                <input type=\"password\" 
+                       name=\"_password\" 
+                       id=\"password\" 
+                       class=\"form-control\" 
+                       autocomplete=\"current-password\" 
+                       required>
+            </div>
+
+            <input type=\"hidden\" name=\"_csrf_token\" value=\"";
+        // line 36
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
         yield "\">
 
-        ";
-        // line 33
-        yield "
-        <button class=\"btn btn-lg btn-primary\" type=\"submit\">
-            Sign in
-        </button>
+            <div class=\"d-flex gap-2 mt-4\">
+                <button class=\"btn btn-primary flex-grow-1\" type=\"submit\">
+                    Se connecter
+                </button>
+                <a href=\"";
+        // line 42
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
+        yield "\" class=\"btn btn-secondary flex-grow-1\">
+                    S'enregistrer
+                </a>
+            </div>
+
+        </div>
     </form>
-";
+
+    ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -176,14 +188,14 @@ class __TwigTemplate_7b1aee6c1e4f1d2dd956e5fe119b48b9 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  143 => 33,  138 => 22,  132 => 19,  127 => 16,  119 => 13,  116 => 12,  114 => 11,  111 => 10,  105 => 8,  103 => 7,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  151 => 42,  142 => 36,  120 => 17,  111 => 10,  105 => 8,  103 => 7,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
     <form method=\"post\">
@@ -191,33 +203,51 @@ class __TwigTemplate_7b1aee6c1e4f1d2dd956e5fe119b48b9 extends Template
             <div class=\"alert alert-danger\">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        {% if app.user %}
-            <div class=\"mb-3\">
-                You are logged in as {{ app.user.userIdentifier }}, <a href=\"{{ logout_path() }}\">Logout</a>
+        <div class=\"card p-3 mb-4 objectifs-card\" style=\"max-width: 500px; margin: 0 auto;\">
+            <h1 class=\"h3 mb-3 font-weight-normal text-white\">Connexion</h1>
+            
+            <div class=\"form-group\">
+                <label for=\"username\">Email</label>
+                <input type=\"email\" 
+                       value=\"{{ last_username }}\" 
+                       name=\"_username\" 
+                       id=\"username\" 
+                       class=\"form-control\" 
+                       autocomplete=\"email\" 
+                       required 
+                       autofocus>
             </div>
-        {% endif %}
 
-        <h1 class=\"h3 mb-3 font-weight-normal\">Please sign in</h1>
-        <label for=\"username\">Email</label>
-        <input type=\"email\" value=\"{{ last_username }}\" name=\"_username\" id=\"username\" class=\"form-control\" autocomplete=\"email\" required autofocus>
-        <label for=\"password\">Password</label>
-        <input type=\"password\" name=\"_password\" id=\"password\" class=\"form-control\" autocomplete=\"current-password\" required>
-        <input type=\"hidden\" name=\"_csrf_token\" data-controller=\"csrf-protection\" value=\"{{ csrf_token('authenticate') }}\">
-
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class=\"checkbox mb-3\">
-                <input type=\"checkbox\" name=\"_remember_me\" id=\"_remember_me\">
-                <label for=\"_remember_me\">Remember me</label>
+            <div class=\"form-group\">
+                <label for=\"password\">Mot de passe</label>
+                <input type=\"password\" 
+                       name=\"_password\" 
+                       id=\"password\" 
+                       class=\"form-control\" 
+                       autocomplete=\"current-password\" 
+                       required>
             </div>
-        #}
 
-        <button class=\"btn btn-lg btn-primary\" type=\"submit\">
-            Sign in
-        </button>
+            <input type=\"hidden\" name=\"_csrf_token\" value=\"{{ csrf_token('authenticate') }}\">
+
+            <div class=\"d-flex gap-2 mt-4\">
+                <button class=\"btn btn-primary flex-grow-1\" type=\"submit\">
+                    Se connecter
+                </button>
+                <a href=\"{{ path('app_register') }}\" class=\"btn btn-secondary flex-grow-1\">
+                    S'enregistrer
+                </a>
+            </div>
+
+        </div>
     </form>
+
+    {#
+    <div class=\"form-check\">
+        <input type=\"checkbox\" name=\"_remember_me\" id=\"remember_me\" class=\"form-check-input\">
+        <label class=\"form-check-label\" for=\"remember_me\">Se souvenir de moi</label>
+    </div>
+    #}
 {% endblock %}
 ", "security/login.html.twig", "/var/www/html/templates/security/login.html.twig");
     }
