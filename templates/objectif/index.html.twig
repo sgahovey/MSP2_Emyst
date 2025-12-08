@@ -32,7 +32,7 @@
                             <td>{{ objectif.valeurCible }}</td>
                             <td>{{ objectif.dateLimite ? objectif.dateLimite|date('Y-m-d') : '' }}</td>
                             <td>
-                                <a class="btn btn-sm btn-primary" href="{{ path('app_objectif_index', { edit: objectif.id }) }}">Modifier</a>
+                               <a class="btn btn-sm btn-primary" href="{{ path('app_objectif_index', { edit: objectif.id }) }}">Modifier</a>
                             </td>
                         </tr>
                     {% else %}
@@ -43,7 +43,8 @@
                     </tbody>
                 </table>
 
-                </div>
+                {# <a class="btn btn-success mt-2" href="{{ path('app_objectif_new') }}">Nouvel objectif</a> #}
+            </div>
 
             <!-- Progression -->
             <div class="card p-3 objectifs-card">

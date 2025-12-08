@@ -1,5 +1,5 @@
 /* ===========================
-   pages.css
+   pages.css - Objectif
    =========================== */
 
 
@@ -43,6 +43,12 @@
     border-radius: 12px;
 }
 
+/* Titres en blanc pour les sections objectifs */
+.objectifs-card h4,
+.form-card h4 {
+    color: #ffffff;
+}
+
 /* table styling already présent dans ton fichier, garde-le */
 
 /* rendu du panneau formulaire : sticky sur desktop */
@@ -62,4 +68,77 @@
     align-items:center;
     justify-content:center;
     color: rgba(255,255,255,0.35);
+}
+
+/* ===========================
+   pages.css — SEANCES INDEX
+   ============================ */
+
+/* Conteneur du tableau */
+.seances-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    width: 100%;
+    padding: 24px;
+}
+
+/* Titre du tableau */
+.seances-card h3 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Table */
+.seances-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.seances-table th,
+.seances-table td {
+    padding: 12px;
+    font-size: 14px;
+    border-bottom: 1px dashed rgba(255,255,255,0.06);
+}
+
+.seances-table th {
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Ligne du tableau hover */
+.seances-table tbody tr:hover {
+    background: rgba(255,255,255,0.02);
+}
+
+/* Actions */
+.seances-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.seances-actions .btn {
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.btn-view {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.05);
+    color: var(--muted);
+}
+
+.btn-edit {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #021;
+    font-weight: 600;
 }

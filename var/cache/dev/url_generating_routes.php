@@ -20,16 +20,32 @@ return [
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     'app_home' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
     'app_objectif_index' => [[], ['_controller' => 'App\\Controller\\ObjectifController::index'], [], [['text', '/objectif']], [], [], []],
+<<<<<<< HEAD
     'app_profil' => [[], ['_controller' => 'App\\Controller\\ProfilController::index'], [], [['text', '/profil']], [], [], []],
     'app_edit_password' => [[], ['_controller' => 'App\\Controller\\ProfilController::editPassword'], [], [['text', '/profil/edit-password']], [], [], []],
+=======
+>>>>>>> origin/Dev
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
+    'app_seance_index' => [[], ['_controller' => 'App\\Controller\\SeanceController::index'], [], [['text', '/seance']], [], [], []],
+    'app_seance_new' => [[], ['_controller' => 'App\\Controller\\SeanceController::new'], [], [['text', '/seance/new']], [], [], []],
+    'app_seance_show' => [['id'], ['_controller' => 'App\\Controller\\SeanceController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/seance']], [], [], []],
+    'app_seance_edit' => [['id'], ['_controller' => 'App\\Controller\\SeanceController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/seance']], [], [], []],
+    'app_seance_delete' => [['id'], ['_controller' => 'App\\Controller\\SeanceController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/seance']], [], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
     'App\Controller\HomeController::index' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
     'App\Controller\ObjectifController::index' => [[], ['_controller' => 'App\\Controller\\ObjectifController::index'], [], [['text', '/objectif']], [], [], []],
+<<<<<<< HEAD
     'App\Controller\ProfilController::index' => [[], ['_controller' => 'App\\Controller\\ProfilController::index'], [], [['text', '/profil']], [], [], []],
     'App\Controller\ProfilController::editPassword' => [[], ['_controller' => 'App\\Controller\\ProfilController::editPassword'], [], [['text', '/profil/edit-password']], [], [], []],
+=======
+>>>>>>> origin/Dev
     'App\Controller\RegistrationController::register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
+    'App\Controller\SeanceController::index' => [[], ['_controller' => 'App\\Controller\\SeanceController::index'], [], [['text', '/seance']], [], [], []],
+    'App\Controller\SeanceController::new' => [[], ['_controller' => 'App\\Controller\\SeanceController::new'], [], [['text', '/seance/new']], [], [], []],
+    'App\Controller\SeanceController::show' => [['id'], ['_controller' => 'App\\Controller\\SeanceController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/seance']], [], [], []],
+    'App\Controller\SeanceController::edit' => [['id'], ['_controller' => 'App\\Controller\\SeanceController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/seance']], [], [], []],
+    'App\Controller\SeanceController::delete' => [['id'], ['_controller' => 'App\\Controller\\SeanceController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/seance']], [], [], []],
     'App\Controller\SecurityController::login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], [], []],
     'App\Controller\SecurityController::logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
 ];
