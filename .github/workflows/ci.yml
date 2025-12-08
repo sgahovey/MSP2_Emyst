@@ -64,11 +64,6 @@ jobs:
         run: |
           composer validate --no-check-publish
           composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-scripts
-          # Vérifier et forcer l'installation de symfony/polyfill-uuid si manquant
-          if [ ! -f "vendor/symfony/polyfill-uuid/bootstrap.php" ]; then
-            echo "Warning: symfony/polyfill-uuid missing, reinstalling dependencies..."
-            composer update symfony/polyfill-uuid --no-interaction --optimize-autoloader
-          fi
           composer dump-autoload --optimize
           composer run-script post-install-cmd
 
