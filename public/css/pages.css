@@ -44,8 +44,28 @@
 }
 
 /* Titres en blanc pour les sections objectifs */
+.objectifs-card h1,
+.objectifs-card h2,
+.objectifs-card h3,
 .objectifs-card h4,
-.form-card h4 {
+.objectifs-card h5,
+.objectifs-card h6,
+.form-card h1,
+.form-card h2,
+.form-card h3,
+.form-card h4,
+.form-card h5,
+.form-card h6 {
+    color: #ffffff;
+}
+
+/* Titres en blanc pour les sections séances */
+.seances-card h1,
+.seances-card h2,
+.seances-card h3,
+.seances-card h4,
+.seances-card h5,
+.seances-card h6 {
     color: #ffffff;
 }
 
@@ -141,4 +161,260 @@
     background: linear-gradient(90deg, var(--accent), var(--accent-2));
     color: #021;
     font-weight: 600;
+}
+
+/* ===========================
+   pages.css — SEANCE NEW
+   ============================ */
+
+.seance-new-container {
+    padding: 24px;
+}
+
+/* Header */
+.seance-new-header {
+    margin-bottom: 32px;
+}
+
+.seance-new-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.seance-new-subtitle {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+/* Formulaire */
+.seance-form-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 32px;
+    border-radius: 12px;
+}
+
+.seance-form .form-group {
+    margin-bottom: 24px;
+}
+
+.seance-form .form-label {
+    display: block;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.seance-form .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.seance-form .form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.seance-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Styles spécifiques pour les listes déroulantes (select) */
+.seance-form select.form-control,
+.seance-form select,
+.seance-form .form-control[type="select"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 40px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.seance-form select.form-control:focus,
+.seance-form select:focus,
+.seance-form .form-control[type="select"]:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+}
+
+.seance-form select.form-control option,
+.seance-form select option {
+    background: #0f1724;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.seance-form select.form-control option:hover,
+.seance-form select option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Style pour le wrapper du select Symfony */
+.seance-form .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+/* Section Exercices */
+.exercices-section {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.exercices-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 16px;
+}
+
+.exercices-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Actions du formulaire */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-add-exercise {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #60a5fa 0%, #6ee7b7 100%);
+    color: #0f1724;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-add-exercise:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+}
+
+.btn-save-seance {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-save-seance:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Récapitulatif */
+.seance-summary-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 24px;
+    border-radius: 12px;
+    position: sticky;
+    top: 20px;
+}
+
+.summary-header {
+    margin-bottom: 24px;
+    text-align: right;
+}
+
+.btn-view-history {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+}
+
+.btn-view-history:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.summary-content {
+    margin-top: 24px;
+}
+
+.summary-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.summary-subtitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.summary-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
 }
