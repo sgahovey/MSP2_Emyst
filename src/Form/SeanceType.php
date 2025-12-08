@@ -18,7 +18,7 @@ class SeanceType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('type_seance')
-            ->add('durée', null, [
+            ->add('duree', null, [
                 'widget' => 'single_text',
             ])
             ->add('user', EntityType::class, [

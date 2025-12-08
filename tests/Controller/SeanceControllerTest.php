@@ -50,7 +50,7 @@ final class SeanceControllerTest extends WebTestCase
         $this->client->submitForm('Save', [
             'seance[date_entrainement]' => 'Testing',
             'seance[type_seance]' => 'Testing',
-            'seance[durée]' => 'Testing',
+            'seance[duree]' => 'Testing',
             'seance[user]' => 'Testing',
         ]);
 
@@ -65,7 +65,7 @@ final class SeanceControllerTest extends WebTestCase
         $fixture = new Seance();
         $fixture->setDate_entrainement('My Title');
         $fixture->setType_seance('My Title');
-        $fixture->setDurée('My Title');
+        $fixture->setDuree('My Title');
         $fixture->setUser('My Title');
 
         $this->manager->persist($fixture);
@@ -96,7 +96,7 @@ final class SeanceControllerTest extends WebTestCase
         $this->client->submitForm('Update', [
             'seance[date_entrainement]' => 'Something New',
             'seance[type_seance]' => 'Something New',
-            'seance[durée]' => 'Something New',
+            'seance[duree]' => 'Something New',
             'seance[user]' => 'Something New',
         ]);
 
@@ -106,7 +106,7 @@ final class SeanceControllerTest extends WebTestCase
 
         self::assertSame('Something New', $fixture[0]->getDate_entrainement());
         self::assertSame('Something New', $fixture[0]->getType_seance());
-        self::assertSame('Something New', $fixture[0]->getDurée());
+        self::assertSame('Something New', $fixture[0]->getDuree());
         self::assertSame('Something New', $fixture[0]->getUser());
     }
 

@@ -23,8 +23,8 @@ class Seance
     #[ORM\Column(enumType: TypeSeanceEnum::class)]
     private ?TypeSeanceEnum $type_seance = null;
 
-    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $durée = null;
+    #[ORM\Column(name: 'duree', type: Types::TIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $duree = null;
 
     /**
      * @var Collection<int, SeanceExercice>
@@ -70,14 +70,14 @@ class Seance
         return $this;
     }
 
-    public function getDurée(): ?\DateTimeImmutable
+    public function getDuree(): ?\DateTimeImmutable
     {
-        return $this->durée;
+        return $this->duree;
     }
 
-    public function setDurée(\DateTimeImmutable $durée): static
+    public function setDuree(\DateTimeImmutable $duree): static
     {
-        $this->durée = $durée;
+        $this->duree = $duree;
 
         return $this;
     }
