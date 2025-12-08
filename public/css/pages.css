@@ -43,6 +43,12 @@
     border-radius: 12px;
 }
 
+/* Titres en blanc pour les sections objectifs */
+.objectifs-card h4,
+.form-card h4 {
+    color: #ffffff;
+}
+
 /* table styling already présent dans ton fichier, garde-le */
 
 /* rendu du panneau formulaire : sticky sur desktop */
