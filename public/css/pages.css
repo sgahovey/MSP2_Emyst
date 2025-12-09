@@ -143,14 +143,12 @@
     }
 }
 
-/* placeholder graphique */
-.progression-placeholder {
-    border-radius: 8px;
-    background: rgba(255,255,255,0.01);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color: rgba(255,255,255,0.35);
+/* Container graphique progression */
+.progression-chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    padding: 16px;
 }
 
 /* ===========================

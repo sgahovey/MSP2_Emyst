@@ -49,8 +49,8 @@
             <!-- Progression -->
             <div class="card p-3 objectifs-card">
                 <h4 class="mb-3">Progression par objectif</h4>
-                <div class="progression-placeholder" style="min-height:200px;">
-                    Graphique par objectif (placeholder)
+                <div class="progression-chart-container">
+                    <canvas id="objectifsChart"></canvas>
                 </div>
             </div>
         </div>
@@ -96,4 +96,96 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('objectifsChart');
+    if (!ctx) return;
+
+    const objectifsData = [
+        {% for objectif in objectifs %}
+        {
+            label: {{ (objectif.typeObjectif ? objectif.typeObjectif.value : '')|json_encode|raw }},
+            valeur: {{ objectif.valeurCible|json_encode|raw }},
+            date: {{ (objectif.dateLimite ? objectif.dateLimite|date('d/m/Y') : '')|json_encode|raw }}
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    if (objectifsData.length === 0) {
+        ctx.parentElement.innerHTML = '<p style="color: rgba(255, 255, 255, 0.5); text-align: center; padding: 40px;">Aucune donnée à afficher</p>';
+        return;
+    }
+
+    const labels = objectifsData.map(o => o.label);
+    const valeurs = objectifsData.map(o => o.valeur);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Valeur cible',
+                data: valeurs,
+                backgroundColor: 'rgba(96, 165, 250, 0.6)',
+                borderColor: 'rgba(110, 231, 183, 1)',
+                borderWidth: 2,
+                borderRadius: 8,
+                borderSkipped: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 36, 0.9)',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    borderColor: 'rgba(110, 231, 183, 0.3)',
+                    borderWidth: 1,
+                    padding: 12,
+                    callbacks: {
+                        afterLabel: function(context) {
+                            const index = context.dataIndex;
+                            return 'Échéance: ' + objectifsData[index].date;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
 {% endblock %}
