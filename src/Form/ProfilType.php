@@ -17,9 +17,27 @@ class ProfilType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Votre nom',
+                'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(message: 'Veuillez entrer votre nom')
+                ]
+            ])
+            ->add('taille', TextType::class, [
+                'label' => 'Taille (en cm)',
+                'attr' => [
+                    'class' => 'form-control',
+                    'min' => 100,
+                    'max' => 250
+                ]
+            ])
+            ->add('poids', TextType::class, [
+                'label' => 'Poids (en kg)',
+                'attr' => [
+                    'class' => 'form-control',
+                    'min' => 30,
+                    'max' => 300,
+                    'step' => '0.1'
                 ]
             ])
             ->add('email', EmailType::class, [
