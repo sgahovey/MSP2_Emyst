@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+<div class="app">
+    <main class="content">
+        <div class="grid row-2">
+            <div class="card">
+                <h3>Progression par exercice</h3>
+
+                <form method="get" class="mb-3">
+                    <label for="exercise">Exercice</label>
+                    <select id="exercise" name="exercise" onchange="this.form.submit()">
+                        {% for ex in exercises %}
+                            <option value="{{ ex.id }}" {% if ex.id == selected_exercise %}selected{% endif %}>
+                                {{ ex.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="period">Période</label>
+                    <select id="period" name="period" onchange="this.form.submit()">
+                        <option value="week" {% if period == 'week' %}selected{% endif %}>7 derniers jours</option>
+                        <option value="month" {% if period == 'month' %}selected{% endif %}>30 jours</option>
+                        <option value="year" {% if period == 'year' %}selected{% endif %}>12 mois</option>
+                    </select>
+                </form>
+
+                <canvas id="exerciseChart"
+                    data-labels='{{ labels_exercise|json_encode|raw }}'
+                    data-volume='{{ volume_exercise|json_encode|raw }}'
+                    data-duration='{{ duration_exercise|json_encode|raw }}'
+                    style="max-height:220px;"></canvas>
+
+                <div class="hint small">Courbe volume (poids×rép) et durée (heures)</div>
+            </div>
+
+            <div class="card">
+                <h3>Progression par semaine (volume)</h3>
+
+                <canvas id="weeklyChart"
+                    data-labels='{{ weekly_labels|json_encode|raw }}'
+                    data-values='{{ weekly_values|json_encode|raw }}'
+                    style="max-height:220px;"></canvas>
+
+                <div class="hint small">Volume = somme (charge × répétitions) par semaine</div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ asset('js/stats.js') }}"></script>
+{% endblock %}
