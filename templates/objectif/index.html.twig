@@ -16,7 +16,7 @@
             <div class="card p-3 mb-4 objectifs-card">
                 <h4 class="mb-3">Mes objectifs</h4>
 
-                <table class="table table-dark table-striped objectifs-table">
+                <table class="objectifs-table-figma">
                     <thead>
                         <tr>
                             <th>Objectif</th>
@@ -30,9 +30,9 @@
                         <tr>
                             <td>{{ objectif.typeObjectif ? objectif.typeObjectif.value : '' }}</td>
                             <td>{{ objectif.valeurCible }}</td>
-                            <td>{{ objectif.dateLimite ? objectif.dateLimite|date('Y-m-d') : '' }}</td>
+                            <td>{{ objectif.dateLimite ? objectif.dateLimite|date('d/m/Y') ~ ' à ' ~ objectif.dateLimite|date('H:i') : '' }}</td>
                             <td>
-                               <a class="btn btn-sm btn-primary" href="{{ path('app_objectif_index', { edit: objectif.id }) }}">Modifier</a>
+                               <a class="btn-modifier-figma" href="{{ path('app_objectif_index', { edit: objectif.id }) }}">Modifier</a>
                             </td>
                         </tr>
                     {% else %}

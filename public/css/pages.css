@@ -59,6 +59,69 @@
     color: #ffffff;
 }
 
+/* Tableau objectifs style Figma */
+.objectifs-table-figma {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.objectifs-table-figma thead {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.objectifs-table-figma th {
+    padding: 16px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.objectifs-table-figma tbody tr {
+    background: rgba(255, 255, 255, 0.02);
+    transition: background 0.2s;
+}
+
+.objectifs-table-figma tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.objectifs-table-figma td {
+    padding: 16px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.objectifs-table-figma tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Bouton Modifier style Figma */
+.btn-modifier-figma {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #60a5fa 0%, #6ee7b7 100%);
+    color: #0f1724;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-modifier-figma:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    color: #0f1724;
+    text-decoration: none;
+}
+
 /* Titres en blanc pour les sections séances */
 .seances-card h1,
 .seances-card h2,
