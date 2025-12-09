@@ -86,8 +86,9 @@
                             </td>
                             <td>
                                 <div class="seances-actions-buttons">
-                                    <a href="{{ path('app_seance_edit', {'id': seance.id}) }}" class="btn-modify">Modifier</a>
-                                    <a href="{{ path('app_seance_delete', {'id': seance.id}) }}" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette séance ?')">Supprimer</a>
+                                    {% if seance.dateEntrainement > date() %}
+                                        <a href="{{ path('app_seance_edit', {'id': seance.id}) }}" class="btn-modify">Modifier</a>
+                                    {% endif %}
                                 </div>
                             </td>
                         </tr>
