@@ -72,17 +72,17 @@
                 {{ form_start(form) }}
 
                 <div class="mb-3">
-                    {{ form_label(form.type_objectif, "Type d'objectif") }}
+                    {{ form_label(form.type_objectif, "Type d'objectif", { label_attr: { class: 'form-label' } }) }}
                     {{ form_widget(form.type_objectif, { attr: { class: 'form-control' } }) }}
                 </div>
 
                 <div class="mb-3">
-                    {{ form_label(form.valeur_cible, "Valeur cible") }}
+                    {{ form_label(form.valeur_cible, "Valeur cible", { label_attr: { class: 'form-label' } }) }}
                     {{ form_widget(form.valeur_cible, { attr: { class: 'form-control' } }) }}
                 </div>
 
                 <div class="mb-3">
-                    {{ form_label(form.date_limite, "Échéance") }}
+                    {{ form_label(form.date_limite, "Échéance", { label_attr: { class: 'form-label' } }) }}
                     {{ form_widget(form.date_limite, { attr: { class: 'form-control' } }) }}
                 </div>
 

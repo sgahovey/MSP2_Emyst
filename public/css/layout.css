@@ -78,3 +78,40 @@ main.content {
 
 .row-3 { grid-template-columns: repeat(3, 1fr); }
 .row-2 { grid-template-columns: 1fr 320px; }
+
+/* Branding dans la sidebar */
+.sidebar .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.sidebar .app-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Items de navigation */
+.nav-list a {
+    text-decoration: none;
+}
+
+.nav-item {
+    display: flex;
+    padding: 12px;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+}
+
+.nav-item.active {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03), transparent);
+    color: #fff;
+    font-weight: 600;
+}

@@ -24,6 +24,43 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="layout">
+            <!-- SIDEBAR -->
+            <nav class="sidebar">
+                <div class="brand">
+                    <div class="logo">E</div>
+                    <h2 class="app-name">Emyst</h2>
+                </div>
+                <ul class="nav-list">
+                    {# <a href="{{ path('app_dashboard') }}"
+                    class="nav-item {% if app.current_route == 'app_dashboard' %}active{% endif %}">
+                        <span>Dashboard</span>
+                    </a> #}
+
+                    <a href="{{ path('app_seance_new') }}"
+                    class="nav-item {% if app.current_route starts with 'app_seance_creer' %}active{% endif %}">
+                        <span>Créer une Séance</span>
+                    </a>
+
+                    <a href="{{ path('app_seance_index') }}"
+                    class="nav-item {% if app.current_route starts with 'app_seance' %}active{% endif %}">
+                        <span>Historique des Séances</span>
+                    </a>
+                    <a href="{{ path('app_objectif_index') }}"
+                    class="nav-item {% if app.current_route starts with 'app_objectif' %}active{% endif %}">
+                        <span>Objectifs</span>
+                    </a>
+                    <a href="{{ path('app_profil') }}"
+                    class="nav-item {% if app.current_route == 'app_profil' %}active{% endif %}">
+                        <span>Mon compte</span>
+                    </a>
+                </ul>
+            </nav>
+
+            <!-- CONTENU PRINCIPAL -->
+            <main class="content">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
     </body>
 </html>
