@@ -4,14 +4,15 @@
 
 {% block body %}
 <div class="container seance-new-container" style="max-width: 1400px;">
-    <div class="row g-4">
-        <div class="col-12">
-            <div class="seance-new-header">
-                <h1 class="seance-new-title">Mon Profil</h1>
-                <p class="seance-new-subtitle">Gérez vos informations personnelles</p>
-            </div>
+    <div class="seance-new-header mb-4">
+        <h1 class="seance-new-title">Mon Profil</h1>
+        <p class="seance-new-subtitle">Gérez vos informations personnelles</p>
+    </div>
 
-            <div class="seance-form-card">
+    <div class="row g-4">
+        <!-- Colonne de gauche - Formulaire de profil -->
+        <div class="col-md-8">
+            <div class="seance-form-card h-100">
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success">
                         {{ message }}
@@ -30,22 +31,62 @@
                         {{ form_widget(profilForm.name, {'attr': {'class': 'form-control'}}) }}
                         {{ form_errors(profilForm.name) }}
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(profilForm.taille, 'Taille (cm)', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="input-group">
+                                    {{ form_widget(profilForm.taille, {'attr': {
+                                        'class': 'form-control',
+                                        'type': 'number',
+                                        'min': 100,
+                                        'max': 250,
+                                        'step': '1'
+                                    }}) }}
+                                    <span class="input-group-text">cm</span>
+                                </div>
+                                {{ form_errors(profilForm.taille) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(profilForm.poids, 'Poids (kg)', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="input-group">
+                                    {{ form_widget(profilForm.poids, {'attr': {
+                                        'class': 'form-control',
+                                        'type': 'number',
+                                        'min': 30,
+                                        'max': 300,
+                                        'step': '0.1'
+                                    }}) }}
+                                    <span class="input-group-text">kg</span>
+                                </div>
+                                {{ form_errors(profilForm.poids) }}
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div class="d-flex">
+                    <div class="d-flex mt-4">
                         <button class="btn btn-primary" type="submit">Enregistrer</button>                           
                     </div>
                 {{ form_end(profilForm) }}
             </div>
+        </div>
 
-            <div class="seance-form-card mt-4">
+        <!-- Colonne de droite - Sécurité -->
+        <div class="col-md-4">
+            <div class="seance-form-card h-100">
                 <h2 class="mb-4">Sécurité</h2>
                 
                 <div class="form-group">
                     <label for="app_edit_password" class="form-label">Modification du mot de passe</label>
-                    <div class="mt-2">
+                    <p class="summary-subtitle">Mettez à jour votre mot de passe régulièrement pour plus de sécurité.</label>
+                    <div class="d-grid">
                         <a href="{{ path('app_edit_password') }}" class="btn btn-save-seance">
                             Modifier le mot de passe
-                    </a>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
