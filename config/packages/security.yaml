@@ -41,8 +41,10 @@ security:
         - { path: ^/, roles: PUBLIC_ACCESS }
         # Page avec accès sécurisé
         - { path: ^/objectif, roles: ROLE_USER }
-
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/seance/*, roles: ROLE_USER }
+        - { path: ^/stats, roles: ROLE_USER }
+        - { path: ^/dashboard, roles: ROLE_USER }
+        - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:
