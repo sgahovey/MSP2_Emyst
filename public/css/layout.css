@@ -1,0 +1,117 @@
+/* ===========================
+   layout.css
+   =========================== */
+
+.app {
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+/* Top bar */
+header.topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #022;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--gap);
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { order: 2; }
+}
+
+/* Sidebar */
+nav.sidebar {
+  background: var(--card);
+  padding: 18px;
+  border-radius: var(--radius);
+  min-height: 520px;
+}
+
+.nav-list { display: flex; flex-direction: column; gap: 6px; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+  color: #fff;
+}
+
+.nav-item:hover { color: #fff; }
+
+main.content {
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius: var(--radius);
+  min-height: 520px;
+}
+
+.grid { display: grid; gap: var(--gap); }
+
+.row-3 { grid-template-columns: repeat(3, 1fr); }
+.row-2 { grid-template-columns: 1fr 320px; }
+
+/* Branding dans la sidebar */
+.sidebar .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.sidebar .app-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Items de navigation */
+.nav-list a {
+    text-decoration: none;
+}
+
+.nav-item {
+    display: flex;
+    padding: 12px;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+}
+
+.nav-item.active {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03), transparent);
+    color: #fff;
+    font-weight: 600;
+}

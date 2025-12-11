@@ -11,6 +11,5 @@ enum TypeSeanceEnum: string {
     case STRETCHING = 'Étirements';
     case HIIT = 'HIIT';
     case ABDOS = 'Abdos';
-    case POMPE = 'Pompe';
     case PLIOMETRIE = 'Pliométrie';
 }

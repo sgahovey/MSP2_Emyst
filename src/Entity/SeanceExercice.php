@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SeanceExerciceRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SeanceExerciceRepository::class)]
@@ -23,6 +24,15 @@ class SeanceExercice
 
     #[ORM\Column]
     private ?int $ordre = null;
+
+    #[ORM\Column]
+    private ?int $repetitions = null;
+
+    #[ORM\Column]
+    private ?int $charge = null;
+
+    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $duree = null;
 
     public function getId(): ?int
     {
@@ -61,6 +71,42 @@ class SeanceExercice
     public function setOrdre(int $ordre): static
     {
         $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    public function getRepetitions(): ?int
+    {
+        return $this->repetitions;
+    }
+
+    public function setRepetitions(int $repetitions): static
+    {
+        $this->repetitions = $repetitions;
+
+        return $this;
+    }
+
+    public function getCharge(): ?int
+    {
+        return $this->charge;
+    }
+
+    public function setCharge(int $charge): static
+    {
+        $this->charge = $charge;
+
+        return $this;
+    }
+
+    public function getDuree(): ?\DateTimeImmutable
+    {
+        return $this->duree;
+    }
+
+    public function setDuree(\DateTimeImmutable $duree): static
+    {
+        $this->duree = $duree;
 
         return $this;
     }

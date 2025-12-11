@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Enum\TypeObjectifEnum;
 use App\Repository\ObjectifRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: ObjectifRepository::class)]
 class Objectif
@@ -22,6 +24,10 @@ class Objectif
 
     #[ORM\Column(enumType: TypeObjectifEnum::class)]
     private ?TypeObjectifEnum $type_objectif = null;
+
+    #[ORM\ManyToOne(inversedBy: 'objectifs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -55,6 +61,17 @@ class Objectif
     public function getTypeObjectif(): ?TypeObjectifEnum
     {
         return $this->type_objectif;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+        return $this;
     }
 
     public function setTypeObjectif(TypeObjectifEnum $type_objectif): static

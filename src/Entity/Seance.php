@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 #[ORM\Entity(repositoryClass: SeanceRepository::class)]
 class Seance
@@ -18,19 +19,24 @@ class Seance
     private ?int $id = null;
 
     #[ORM\Column]
+    #[GreaterThan('now', message: 'La date de la séance ne peut pas être antérieure à la date d\'aujourd\'hui.')]
     private ?\DateTimeImmutable $date_entrainement = null;
 
     #[ORM\Column(enumType: TypeSeanceEnum::class)]
     private ?TypeSeanceEnum $type_seance = null;
 
-    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $durée = null;
+    #[ORM\Column(name: 'duree', type: Types::TIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $duree = null;
 
     /**
      * @var Collection<int, SeanceExercice>
      */
     #[ORM\OneToMany(targetEntity: SeanceExercice::class, mappedBy: 'seances')]
     private Collection $seanceExercices;
+
+    #[ORM\ManyToOne(inversedBy: 'seances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -66,14 +72,14 @@ class Seance
         return $this;
     }
 
-    public function getDurée(): ?\DateTimeImmutable
+    public function getDuree(): ?\DateTimeImmutable
     {
-        return $this->durée;
+        return $this->duree;
     }
 
-    public function setDurée(\DateTimeImmutable $durée): static
+    public function setDuree(\DateTimeImmutable $duree): static
     {
-        $this->durée = $durée;
+        $this->duree = $duree;
 
         return $this;
     }
@@ -104,6 +110,18 @@ class Seance
                 $seanceExercice->setSeances(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
