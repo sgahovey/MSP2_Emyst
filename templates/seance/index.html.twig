@@ -67,7 +67,8 @@
                         </thead>
                         <tbody>
                         {% for seance in seances %}
-                            <tr>
+                            {% set isToday = seance.dateEntrainement|date('Y-m-d') == 'now'|date('Y-m-d') %}
+                            <tr{% if isToday %} class="seance-today"{% endif %}>
                                 <td>{{ seance.dateEntrainement|date('Y-m-d') }}</td>
                                 <td>{{ seance.typeSeance ? seance.typeSeance.value : '' }}</td>
                                 <td>
