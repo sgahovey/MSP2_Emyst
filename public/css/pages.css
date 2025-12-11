@@ -300,6 +300,64 @@
     color: rgba(255, 255, 255, 0.4);
 }
 
+/* Messages d'erreur dans le formulaire séance */
+.seance-form .form-group .form-error,
+.seance-form .invalid-feedback,
+.seance-form .form-error-list,
+.seance-form .form-error-list li,
+.seance-form ul.form-error-list,
+.seance-form ul.form-error-list li,
+.seance-form ul li {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #f87171 !important;
+    padding: 4px 0;
+    list-style: none;
+}
+
+.seance-form .form-error-list,
+.seance-form ul.form-error-list {
+    margin: 6px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.seance-form .form-error-list li,
+.seance-form ul.form-error-list li,
+.seance-form ul li {
+    margin: 4px 0;
+    padding-left: 0;
+    color: #f87171 !important;
+}
+
+/* Cibler toutes les listes d'erreurs dans le formulaire */
+.seance-form ul {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0 0;
+}
+
+.seance-form ul li {
+    color: #f87171 !important;
+    font-size: 13px;
+}
+
+.seance-form .form-control.is-invalid {
+    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.seance-form .alert-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
 /* Styles spécifiques pour les listes déroulantes (select) */
 .seance-form select.form-control,
 .seance-form select,
@@ -344,22 +402,558 @@
 
 /* Section Exercices */
 .exercices-section {
-    margin-top: 32px;
-    padding-top: 32px;
+    margin-top: 24px;
+    padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .exercices-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: #ffffff;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .exercices-placeholder {
     color: rgba(255, 255, 255, 0.5);
     font-size: 14px;
     font-style: italic;
+}
+
+.exercices-subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+/* Grille d'exercices */
+.exercices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+/* Grille dans le modal - sans limite de hauteur */
+.exercices-modal-body .exercices-grid {
+    max-height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+}
+
+.exercices-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.exercices-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.exercices-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.exercices-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Carte d'exercice */
+.exercice-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.exercice-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(110, 231, 183, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.exercice-card:active {
+    cursor: grabbing;
+}
+
+/* Styles de drag supprimés */
+
+/* Handle supprimé - plus de drag & drop */
+
+.exercice-card-image {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exercice-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.exercice-card-image img[loading="lazy"] {
+    opacity: 1;
+}
+
+.exercice-card-image img.loaded {
+    opacity: 1;
+}
+
+.exercice-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    background: linear-gradient(135deg, rgba(110, 231, 183, 0.1), rgba(96, 165, 250, 0.1));
+}
+
+.exercice-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.exercice-card-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+}
+
+.exercice-card-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 0;
+}
+
+.exercice-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.exercice-detail-item svg {
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Zone de drop */
+.exercices-grid.drag-over {
+    background: rgba(110, 231, 183, 0.05);
+    border-radius: 12px;
+}
+
+/* Section exercices sélectionnés */
+.exercices-selected-section {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.exercices-selected-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.exercices-selected-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.exercices-selected-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.exercices-selected-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.exercices-selected-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.no-exercices-message {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* Carte exercice sélectionné */
+.exercice-selected-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 16px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.exercice-selected-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(110, 231, 183, 0.3);
+}
+
+.exercice-selected-info {
+    flex: 1;
+}
+
+.exercice-selected-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 16px 0;
+}
+
+.exercice-selected-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.exercice-selected-fields .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.exercice-selected-fields label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.exercice-selected-fields .form-control {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.exercice-selected-fields .form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-remove-exercice {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    align-self: flex-start;
+}
+
+.btn-remove-exercice:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+}
+
+/* Boutons de réorganisation */
+.exercice-order-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-order {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-order:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(110, 231, 183, 0.3);
+    color: #ffffff;
+}
+
+.btn-order:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Modal pour les exercices */
+.exercices-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.exercices-modal.active {
+    display: flex;
+}
+
+.exercices-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.exercices-modal-content {
+    position: relative;
+    background: linear-gradient(180deg, #0f1724 0%, #081426 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.exercices-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.exercices-modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close-modal:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.exercices-modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.btn-open-exercices-modal {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #021;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.btn-open-exercices-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(110, 231, 183, 0.3);
+}
+
+.btn-open-exercices-modal svg {
+    flex-shrink: 0;
+}
+
+/* Scrollbar pour le modal */
+.exercices-modal-body::-webkit-scrollbar,
+.exercices-modal-body .exercices-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.exercices-modal-body::-webkit-scrollbar-track,
+.exercices-modal-body .exercices-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.exercices-modal-body::-webkit-scrollbar-thumb,
+.exercices-modal-body .exercices-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.exercices-modal-body::-webkit-scrollbar-thumb:hover,
+.exercices-modal-body .exercices-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.exercices-modal-subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+.exercices-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-cancel-modal {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancel-modal:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-validate-exercices {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #021;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-validate-exercices:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(110, 231, 183, 0.3);
+}
+
+.btn-validate-exercices:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Exercices disponibles - style différent */
+.exercice-card-available {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: all 0.3s;
+}
+
+.exercice-card-available:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    border-color: rgba(110, 231, 183, 0.4);
+}
+
+.exercice-card-available:active {
+    transform: translateY(-2px) scale(1.01);
+}
+
+.exercice-card-available.selected {
+    border-color: var(--accent);
+    background: rgba(110, 231, 183, 0.1);
+    box-shadow: 0 0 0 2px rgba(110, 231, 183, 0.3);
+    transform: scale(1.02);
+}
+
+.exercice-card-available.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #021;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    z-index: 10;
 }
 
 /* Actions du formulaire */
@@ -634,6 +1228,20 @@
 
 .seances-history-table tbody tr:hover {
     background: rgba(255, 255, 255, 0.02);
+}
+
+.seances-history-table tbody tr.seance-today {
+    background: rgba(59, 130, 246, 0.15);
+    border-left: 3px solid #3b82f6;
+}
+
+.seances-history-table tbody tr.seance-today:hover {
+    background: rgba(59, 130, 246, 0.2);
+}
+
+.seances-history-table tbody tr.seance-today td {
+    color: #93c5fd;
+    font-weight: 500;
 }
 
 .seances-history-table tbody tr:last-child td {

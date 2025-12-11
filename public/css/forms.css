@@ -51,3 +51,73 @@ textarea { min-height: 100px; }
 
 /* Filters */
 .filters { display: flex; gap: 8px; align-items: center; }
+
+/* Messages d'erreur */
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.alert-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+.alert-success {
+    background: rgba(110, 231, 183, 0.1);
+    border: 1px solid rgba(110, 231, 183, 0.3);
+    color: #6ee7b7;
+}
+
+/* Erreurs de formulaire Symfony */
+.form-group .form-error,
+.invalid-feedback,
+.form-error-list,
+.form-error-list li,
+ul.form-error-list,
+ul.form-error-list li {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #f87171 !important;
+    list-style: none;
+    padding: 0;
+}
+
+.form-error-list,
+ul.form-error-list {
+    margin: 6px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.form-error-list li,
+ul.form-error-list li {
+    margin: 4px 0;
+    padding-left: 0;
+    color: #f87171 !important;
+}
+
+.form-control.is-invalid {
+    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+/* Styles pour les erreurs dans les formulaires - cibler uniquement les listes d'erreurs */
+form .form-group ul,
+form ul.form-error-list {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0 0;
+}
+
+form .form-group ul li,
+form ul.form-error-list li {
+    color: #f87171 !important;
+    font-size: 13px;
+    margin: 4px 0;
+    padding-left: 0;
+}

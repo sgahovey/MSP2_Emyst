@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 #[ORM\Entity(repositoryClass: SeanceRepository::class)]
 class Seance
@@ -18,6 +19,7 @@ class Seance
     private ?int $id = null;
 
     #[ORM\Column]
+    #[GreaterThan('now', message: 'La date de la séance ne peut pas être antérieure à la date d\'aujourd\'hui.')]
     private ?\DateTimeImmutable $date_entrainement = null;
 
     #[ORM\Column(enumType: TypeSeanceEnum::class)]

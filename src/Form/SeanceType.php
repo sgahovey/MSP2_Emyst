@@ -5,16 +5,18 @@ namespace App\Form;
 use App\Entity\Seance;
 use App\Enum\TypeSeanceEnum;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class SeanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date_entrainement', null, [
+            ->add('date_entrainement', DateTimeType::class, [
                 'widget' => 'single_text',
             ])
             ->add('type_seance', EnumType::class, [

@@ -65,8 +65,11 @@
                     </thead>
                     <tbody>
                     {% for seance in seances %}
-                        <tr>
-                            <td>{{ seance.dateEntrainement|date('Y-m-d') }}</td>
+                        {% set seanceDate = seance.dateEntrainement|date('Y-m-d') %}
+                        {% set todayDate = 'now'|date('Y-m-d') %}
+                        {% set isToday = seanceDate == todayDate %}
+                        <tr {% if isToday %}class="seance-today"{% endif %}>
+                            <td>{{ seance.dateEntrainement|date('d/m/Y') }}</td>
                             <td>{{ seance.typeSeance ? seance.typeSeance.value : '' }}</td>
                             <td>
                                 {% if seance.seanceExercices|length > 0 %}
@@ -101,7 +104,6 @@
                 </table>
             </div>
 
-            <p class="seances-history-note">Fonctionnalité suppression / modification prévue dans la structure (sans logique).</p>
         </div>
 
     </main>

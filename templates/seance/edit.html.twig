@@ -1,13 +1,712 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Seance{% endblock %}
+{% block title %}Modifier une séance{% endblock %}
 
 {% block body %}
-    <h1>Edit Seance</h1>
+<div class="container seance-new-container" style="max-width: 1400px;">
+    <div class="row g-4">
+        <!-- ==========================
+             COLONNE GAUCHE (FORMULAIRE)
+        =========================== -->
+        <div class="col-lg-8">
+            <div class="seance-new-header">
+                <h1 class="seance-new-title">Modifier une séance</h1>
+                <p class="seance-new-subtitle">Modifiez les détails et les exercices</p>
+            </div>
 
-    {{ include('seance/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="seance-form-card">
+                {{ form_start(form, { attr: { class: 'seance-form' } }) }}
 
-    <a href="{{ path('app_seance_index') }}">back to list</a>
+                <div class="form-group">
+                    {{ form_label(form.date_entrainement, "Date", { label_attr: { class: 'form-label' } }) }}
+                    {{ form_widget(form.date_entrainement, { attr: { class: 'form-control' } }) }}
+                    {{ form_errors(form.date_entrainement) }}
+                </div>
 
-    {{ include('seance/_delete_form.html.twig') }}
+                <div class="form-group">
+                    {{ form_label(form.type_seance, "Type", { label_attr: { class: 'form-label' } }) }}
+                    {{ form_widget(form.type_seance, { attr: { class: 'form-control' } }) }}
+                    {{ form_errors(form.type_seance) }}
+                </div>
+
+                {# Champ Durée caché - calculé automatiquement à partir des exercices #}
+                <div class="form-group" style="display: none;">
+                    {{ form_label(form.duree, "Durée", { label_attr: { class: 'form-label' } }) }}
+                    {{ form_widget(form.duree, { attr: { class: 'form-control' } }) }}
+                    {{ form_errors(form.duree) }}
+                </div>
+
+                <div class="exercices-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <div>
+                            <h3 class="exercices-title">Exercices disponibles</h3>
+                            <p class="exercices-subtitle">Cliquez sur le bouton pour voir tous les exercices</p>
+                        </div>
+                        <button type="button" class="btn btn-open-exercices-modal" id="btn-open-exercices-modal">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                                <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Voir les exercices
+                        </button>
+                    </div>
+                    
+                    <!-- Modal pour les exercices -->
+                    <div id="exercices-modal" class="exercices-modal">
+                        <div class="exercices-modal-overlay"></div>
+                        <div class="exercices-modal-content">
+                            <div class="exercices-modal-header">
+                                <div>
+                                    <h3 class="exercices-modal-title">Sélectionner des exercices</h3>
+                                    <p class="exercices-modal-subtitle" id="exercices-selected-count">0 exercice(s) sélectionné(s)</p>
+                                </div>
+                                <button type="button" class="btn-close-modal" id="btn-close-exercices-modal">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="exercices-modal-body">
+                                <div id="exercices-available" class="exercices-grid">
+                                    {% for exercice in exercices %}
+                            <div class="exercice-card exercice-card-available" data-exercice-id="{{ exercice.id }}" data-exercice-nom="{{ exercice.nom }}" data-exercice-default-rep="{{ exercice.repetitions ?? 0 }}" data-exercice-default-charge="{{ exercice.charge ?? 0 }}">
+                                <div class="exercice-card-image">
+                                    {% set imagePath = null %}
+                                    {% if exercice.imageUrl %}
+                                        {# Si imageUrl contient déjà "image/", l'utiliser tel quel #}
+                                        {% if exercice.imageUrl starts with 'image/' %}
+                                            {% set imagePath = exercice.imageUrl %}
+                                        {# Si imageUrl commence par "/", c'est un chemin absolu #}
+                                        {% elseif exercice.imageUrl starts with '/' %}
+                                            {% set imagePath = exercice.imageUrl|slice(1) %}
+                                        {# Sinon, ajouter le préfixe "image/" #}
+                                        {% else %}
+                                            {% set imagePath = 'image/' ~ exercice.imageUrl %}
+                                        {% endif %}
+                                    {% else %}
+                                        {# Fallback : utiliser le nom de l'exercice en minuscules #}
+                                        {% set imageName = exercice.nom|lower|replace({' ': ''}) ~ '.jpg' %}
+                                        {% set imagePath = 'image/' ~ imageName %}
+                                    {% endif %}
+                                    <img src="{{ asset(imagePath) }}" alt="{{ exercice.nom }}" loading="lazy" decoding="async">
+                                    <div class="exercice-card-placeholder" style="display: none;">
+                                        <span>💪</span>
+                                    </div>
+                                </div>
+                                <div class="exercice-card-content">
+                                    <h4 class="exercice-card-name">{{ exercice.nom }}</h4>
+                                    <div class="exercice-card-details">
+                                        {% if exercice.repetitions %}
+                                            <span class="exercice-detail-item">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8 2V14M2 8H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                                </svg>
+                                                {{ exercice.repetitions }} rép.
+                                            </span>
+                                        {% endif %}
+                                        {% if exercice.charge %}
+                                            <span class="exercice-detail-item">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="6" width="12" height="8" rx="1" stroke="currentColor" stroke-width="2"/>
+                                                    <path d="M6 2L8 6L10 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                {{ exercice.charge }} kg
+                                            </span>
+                                        {% endif %}
+                                        {% if exercice.duree %}
+                                            <span class="exercice-detail-item">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/>
+                                                    <path d="M8 4V8L10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                                </svg>
+                                                {{ exercice.duree|date('H:i') }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="exercices-modal-footer">
+                                <button type="button" class="btn btn-cancel-modal" id="btn-cancel-exercices-modal">Annuler</button>
+                                <button type="button" class="btn btn-validate-exercices" id="btn-validate-exercices" disabled>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+                                        <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Valider (<span id="validate-count">0</span>)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercices-selected-section">
+                    <h3 class="exercices-title">Exercices sélectionnés</h3>
+                    <p class="exercices-subtitle">Remplissez les détails pour chaque exercice • Cliquez sur "Voir les exercices" pour en ajouter</p>
+                    
+                    <div id="exercices-selected-list" class="exercices-selected-list">
+                        <p class="no-exercices-message" id="no-exercices-message">Aucun exercice sélectionné. Cliquez sur les exercices ci-dessus pour les ajouter.</p>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-save-seance">Enregistrer les modifications</button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+        <!-- ==========================
+             COLONNE DROITE (RÉCAPITULATIF)
+        =========================== -->
+        <div class="col-lg-4">
+            <div class="seance-summary-card">
+                <div class="summary-header">
+                    <a href="{{ path('app_seance_index') }}" class="btn btn-view-history">Voir l'historique</a>
+                </div>
+                
+                <div class="summary-content">
+                    <h3 class="summary-title">Récapitulatif</h3>
+                    <p class="summary-subtitle">Informations rapides sur la séance en cours (temps estimé, charge estimée)</p>
+                    
+                    <div class="summary-item">
+                        <span class="summary-label">Temps estimé</span>
+                        <span class="summary-value" id="total-duree-estimate">--:--</span>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span class="summary-label">Charge estimée</span>
+                        <span class="summary-value" id="total-charge-estimate">0 kg</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            'use strict';
+            
+            const exercicesAvailable = document.getElementById('exercices-available');
+            const exercicesSelectedList = document.getElementById('exercices-selected-list');
+            const noExercicesMessage = document.getElementById('no-exercices-message');
+            let selectedExercices = []; // Exercices ajoutés à la séance
+            let modalSelectedExercices = []; // Exercices sélectionnés dans le modal (temporaires)
+            
+            // Charger les exercices existants de la séance
+            {% if seance.seanceExercices is not empty %}
+            selectedExercices = [
+                {% for seanceExercice in seance.seanceExercices %}
+                {
+                    id: {{ seanceExercice.exercices.id }},
+                    nom: "{{ seanceExercice.exercices.nom|e('js') }}",
+                    repetitions: {{ seanceExercice.repetitions ?? 0 }},
+                    charge: {{ seanceExercice.charge ?? 0 }},
+                    duree: "{{ seanceExercice.duree ? seanceExercice.duree|date('H:i:s') : '00:00:00' }}",
+                    ordre: {{ seanceExercice.ordre ?? loop.index }}
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ];
+            {% endif %}
+            
+            console.log('Initialisation:', {
+                exercicesAvailable: !!exercicesAvailable,
+                exercicesSelectedList: !!exercicesSelectedList,
+                noExercicesMessage: !!noExercicesMessage,
+                selectedExercicesCount: selectedExercices.length
+            });
+            
+            if (!exercicesAvailable || !exercicesSelectedList) {
+                console.error('Éléments manquants!', {
+                    exercicesAvailable: !!exercicesAvailable,
+                    exercicesSelectedList: !!exercicesSelectedList
+                });
+                return;
+            }
+            
+            // Gérer le chargement des images
+            exercicesAvailable.querySelectorAll('img').forEach(img => {
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', function() {
+                        this.classList.add('loaded');
+                    });
+                    img.addEventListener('error', function() {
+                        const placeholder = this.nextElementSibling;
+                        if (placeholder && placeholder.classList.contains('exercice-card-placeholder')) {
+                            this.style.display = 'none';
+                            placeholder.style.display = 'flex';
+                        }
+                    });
+                }
+            });
+            
+            // Ajouter un exercice à la liste sélectionnée
+            function addExerciceToSelected(exerciceCard) {
+                if (!exerciceCard) {
+                    console.error('exerciceCard est null');
+                    return;
+                }
+                
+                const exerciceId = exerciceCard.dataset.exerciceId;
+                const exerciceNom = exerciceCard.dataset.exerciceNom;
+                const defaultRep = parseInt(exerciceCard.dataset.exerciceDefaultRep) || 0;
+                const defaultCharge = parseInt(exerciceCard.dataset.exerciceDefaultCharge) || 0;
+                
+                console.log('Tentative d\'ajout:', { exerciceId, exerciceNom, defaultRep, defaultCharge });
+                
+                // Vérifier si l'exercice n'est pas déjà ajouté (comparaison en string)
+                if (selectedExercices.find(e => String(e.id) === String(exerciceId))) {
+                    console.log('Exercice déjà ajouté:', exerciceId);
+                    return;
+                }
+                
+                const exerciceData = {
+                    id: exerciceId,
+                    nom: exerciceNom,
+                    repetitions: defaultRep,
+                    charge: defaultCharge,
+                    duree: '00:00:00',
+                    ordre: selectedExercices.length + 1
+                };
+                
+                selectedExercices.push(exerciceData);
+                console.log('Exercice ajouté avec succès:', exerciceData);
+                console.log('Liste complète:', selectedExercices);
+                renderSelectedExercices();
+                updateTotalCharge();
+                updateTotalDuree();
+            }
+            
+            // Supprimer un exercice de la liste sélectionnée
+            function removeExerciceFromSelected(exerciceId) {
+                selectedExercices = selectedExercices.filter(e => e.id !== exerciceId);
+                updateOrdre();
+                renderSelectedExercices();
+                updateTotalCharge();
+                updateTotalDuree();
+            }
+            
+            // Mettre à jour l'ordre des exercices
+            function updateOrdre() {
+                selectedExercices.forEach((exercice, index) => {
+                    exercice.ordre = index + 1;
+                });
+            }
+            
+            // Rendre la liste des exercices sélectionnés
+            function renderSelectedExercices() {
+                if (selectedExercices.length === 0) {
+                    noExercicesMessage.style.display = 'block';
+                    exercicesSelectedList.innerHTML = '';
+                    exercicesSelectedList.appendChild(noExercicesMessage);
+                    return;
+                }
+                
+                noExercicesMessage.style.display = 'none';
+                exercicesSelectedList.innerHTML = '';
+                
+                selectedExercices.forEach((exercice, index) => {
+                    const exerciceItem = document.createElement('div');
+                    exerciceItem.className = 'exercice-selected-item';
+                    exerciceItem.dataset.exerciceId = exercice.id;
+                    exerciceItem.dataset.ordre = exercice.ordre;
+                    
+                    exerciceItem.innerHTML = `
+                        <div class="exercice-selected-info">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <h4 class="exercice-selected-name">${exercice.nom}</h4>
+                                <div class="exercice-order-buttons">
+                                    <button type="button" class="btn-order btn-order-up" ${index === 0 ? 'disabled' : ''} data-exercice-id="${exercice.id}" data-direction="up" title="Monter">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 12L4 8M8 12L12 8M8 12V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="btn-order btn-order-down" ${index === selectedExercices.length - 1 ? 'disabled' : ''} data-exercice-id="${exercice.id}" data-direction="down" title="Descendre">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 4L4 8M8 4L12 8M8 4V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="exercice-selected-fields">
+                                <div class="field-group">
+                                    <label>Répétitions</label>
+                                    <input type="number" name="exercices[${exercice.id}][repetitions]" value="${exercice.repetitions}" min="0" class="form-control" data-field="repetitions" data-exercice-id="${exercice.id}">
+                                </div>
+                                <div class="field-group">
+                                    <label>Charge (kg)</label>
+                                    <input type="number" name="exercices[${exercice.id}][charge]" value="${exercice.charge}" min="0" class="form-control" data-field="charge" data-exercice-id="${exercice.id}">
+                                </div>
+                                <div class="field-group">
+                                    <label>Durée (HH:MM:SS)</label>
+                                    <input type="text" name="exercices[${exercice.id}][duree]" value="${exercice.duree}" pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" placeholder="00:00:00" class="form-control" data-field="duree" data-exercice-id="${exercice.id}">
+                                    <small style="color: rgba(255,255,255,0.5); font-size: 11px;">Format: HH:MM:SS</small>
+                                </div>
+                                <input type="hidden" name="exercices[${exercice.id}][exercice_id]" value="${exercice.id}">
+                                <input type="hidden" name="exercices[${exercice.id}][ordre]" value="${exercice.ordre}">
+                            </div>
+                        </div>
+                        <button type="button" class="btn-remove-exercice" data-exercice-id="${exercice.id}">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    `;
+                    
+                    exercicesSelectedList.appendChild(exerciceItem);
+                });
+                
+                // Ajouter les event listeners
+                attachSelectedExercicesListeners();
+                
+                // Mettre à jour la charge totale et la durée totale après le rendu
+                updateTotalCharge();
+                updateTotalDuree();
+            }
+            
+            // Calculer et mettre à jour la charge totale estimée
+            function updateTotalCharge() {
+                let totalCharge = 0;
+                
+                // Parcourir tous les exercices sélectionnés
+                selectedExercices.forEach(exercice => {
+                    // Si l'exercice a déjà été rendu, prendre la valeur du champ input
+                    const chargeInput = document.querySelector(`input[data-field="charge"][data-exercice-id="${exercice.id}"]`);
+                    if (chargeInput) {
+                        const charge = parseInt(chargeInput.value) || 0;
+                        totalCharge += charge;
+                    } else {
+                        // Sinon, utiliser la valeur de l'objet exercice
+                        totalCharge += parseInt(exercice.charge) || 0;
+                    }
+                });
+                
+                // Mettre à jour l'affichage
+                const totalChargeElement = document.getElementById('total-charge-estimate');
+                if (totalChargeElement) {
+                    totalChargeElement.textContent = `${totalCharge} kg`;
+                }
+            }
+            
+            // Convertir une durée HH:MM:SS en secondes
+            function durationToSeconds(duration) {
+                if (!duration || duration === '00:00:00' || duration === '--:--') {
+                    return 0;
+                }
+                
+                const parts = duration.split(':');
+                if (parts.length !== 3) {
+                    return 0;
+                }
+                
+                const hours = parseInt(parts[0]) || 0;
+                const minutes = parseInt(parts[1]) || 0;
+                const seconds = parseInt(parts[2]) || 0;
+                
+                return hours * 3600 + minutes * 60 + seconds;
+            }
+            
+            // Convertir des secondes en format HH:MM:SS
+            function secondsToDuration(totalSeconds) {
+                if (totalSeconds === 0) {
+                    return '--:--';
+                }
+                
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                
+                return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+            }
+            
+            // Calculer et mettre à jour la durée totale estimée
+            function updateTotalDuree() {
+                let totalSeconds = 0;
+                
+                // Parcourir tous les exercices sélectionnés
+                selectedExercices.forEach(exercice => {
+                    // Si l'exercice a déjà été rendu, prendre la valeur du champ input
+                    const dureeInput = document.querySelector(`input[data-field="duree"][data-exercice-id="${exercice.id}"]`);
+                    if (dureeInput) {
+                        const duree = dureeInput.value || '00:00:00';
+                        totalSeconds += durationToSeconds(duree);
+                    } else {
+                        // Sinon, utiliser la valeur de l'objet exercice
+                        totalSeconds += durationToSeconds(exercice.duree);
+                    }
+                });
+                
+                // Mettre à jour l'affichage
+                const totalDureeElement = document.getElementById('total-duree-estimate');
+                if (totalDureeElement) {
+                    totalDureeElement.textContent = secondsToDuration(totalSeconds);
+                }
+                
+                // Mettre à jour aussi le champ caché du formulaire
+                // Chercher le champ durée du formulaire principal (peut avoir différents noms selon Symfony)
+                const dureeFormInput = document.querySelector('input[name*="[duree]"]') || 
+                                      document.querySelector('input[name="seance[duree]"]') ||
+                                      document.querySelector('input[name="seance_duree"]');
+                if (dureeFormInput && totalSeconds > 0) {
+                    const hours = Math.floor(totalSeconds / 3600);
+                    const minutes = Math.floor((totalSeconds % 3600) / 60);
+                    // Le champ time HTML attend le format HH:MM (sans secondes)
+                    const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+                    dureeFormInput.value = timeString;
+                } else if (dureeFormInput && totalSeconds === 0) {
+                    // Si aucune durée, mettre une valeur par défaut
+                    dureeFormInput.value = '00:00';
+                }
+            }
+            
+            // Attacher les listeners aux exercices sélectionnés
+            function attachSelectedExercicesListeners() {
+                // Boutons de suppression
+                exercicesSelectedList.querySelectorAll('.btn-remove-exercice').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        removeExerciceFromSelected(this.dataset.exerciceId);
+                    });
+                });
+                
+                // Mise à jour des valeurs
+                exercicesSelectedList.querySelectorAll('input[data-field]').forEach(input => {
+                    input.addEventListener('change', function() {
+                        // Mettre à jour la valeur dans l'objet exercice
+                        const exerciceId = this.dataset.exerciceId;
+                        const field = this.dataset.field;
+                        const exercice = selectedExercices.find(e => String(e.id) === String(exerciceId));
+                        if (exercice) {
+                            if (field === 'charge' || field === 'repetitions') {
+                                exercice[field] = parseInt(this.value) || 0;
+                            } else {
+                                exercice[field] = this.value;
+                            }
+                        }
+                        // Mettre à jour la charge totale ou la durée totale
+                        if (field === 'charge') {
+                            updateTotalCharge();
+                        } else if (field === 'duree') {
+                            updateTotalDuree();
+                        }
+                    });
+                    
+                    // Écouter aussi les événements input pour mise à jour en temps réel
+                    input.addEventListener('input', function() {
+                        if (this.dataset.field === 'charge') {
+                            updateTotalCharge();
+                        } else if (this.dataset.field === 'duree') {
+                            updateTotalDuree();
+                        }
+                    });
+                });
+                
+                // Boutons de réorganisation
+                initDragDropSelected();
+            }
+            
+            // Boutons de réorganisation
+            function initDragDropSelected() {
+                // Event listeners pour les boutons de réorganisation
+                exercicesSelectedList.querySelectorAll('.btn-order').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const exerciceId = this.dataset.exerciceId;
+                        const direction = this.dataset.direction;
+                        const currentIndex = selectedExercices.findIndex(e => e.id === exerciceId);
+                        
+                        if (direction === 'up' && currentIndex > 0) {
+                            [selectedExercices[currentIndex], selectedExercices[currentIndex - 1]] = 
+                            [selectedExercices[currentIndex - 1], selectedExercices[currentIndex]];
+                            updateOrdre();
+                            renderSelectedExercices();
+                        } else if (direction === 'down' && currentIndex < selectedExercices.length - 1) {
+                            [selectedExercices[currentIndex], selectedExercices[currentIndex + 1]] = 
+                            [selectedExercices[currentIndex + 1], selectedExercices[currentIndex]];
+                            updateOrdre();
+                            renderSelectedExercices();
+                        }
+                    });
+                });
+            }
+            
+            // Toggle la sélection d'un exercice dans le modal
+            function toggleExerciceSelection(exerciceCard) {
+                const exerciceId = exerciceCard.dataset.exerciceId;
+                const exerciceNom = exerciceCard.dataset.exerciceNom;
+                const defaultRep = parseInt(exerciceCard.dataset.exerciceDefaultRep) || 0;
+                const defaultCharge = parseInt(exerciceCard.dataset.exerciceDefaultCharge) || 0;
+                
+                // Vérifier si l'exercice est déjà sélectionné dans le modal
+                const index = modalSelectedExercices.findIndex(e => String(e.id) === String(exerciceId));
+                
+                if (index > -1) {
+                    // Désélectionner
+                    modalSelectedExercices.splice(index, 1);
+                    exerciceCard.classList.remove('selected');
+                } else {
+                    // Sélectionner
+                    const exerciceData = {
+                        id: exerciceId,
+                        nom: exerciceNom,
+                        repetitions: defaultRep,
+                        charge: defaultCharge,
+                        duree: '00:00:00',
+                        ordre: 0 // Sera mis à jour lors de l'ajout
+                    };
+                    modalSelectedExercices.push(exerciceData);
+                    exerciceCard.classList.add('selected');
+                }
+                
+                updateModalSelectionCount();
+            }
+            
+            // Mettre à jour le compteur de sélection dans le modal
+            function updateModalSelectionCount() {
+                const count = modalSelectedExercices.length;
+                const countElement = document.getElementById('exercices-selected-count');
+                const validateCountElement = document.getElementById('validate-count');
+                const validateButton = document.getElementById('btn-validate-exercices');
+                
+                if (countElement) {
+                    countElement.textContent = `${count} exercice(s) sélectionné(s)`;
+                }
+                
+                if (validateCountElement) {
+                    validateCountElement.textContent = count;
+                }
+                
+                if (validateButton) {
+                    validateButton.disabled = count === 0;
+                }
+            }
+            
+            // Valider et ajouter les exercices sélectionnés
+            function validateAndAddExercices() {
+                modalSelectedExercices.forEach(exercice => {
+                    // Vérifier si l'exercice n'est pas déjà dans la liste
+                    if (!selectedExercices.find(e => String(e.id) === String(exercice.id))) {
+                        exercice.ordre = selectedExercices.length + 1;
+                        selectedExercices.push(exercice);
+                    }
+                });
+                
+                // Réinitialiser la sélection du modal
+                modalSelectedExercices = [];
+                exercicesAvailable.querySelectorAll('.exercice-card-available').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                
+                updateModalSelectionCount();
+                renderSelectedExercices();
+                updateTotalCharge();
+                updateTotalDuree();
+                closeModal();
+            }
+            
+            // Attacher les événements de clic directement sur chaque carte
+            function initAvailableExercices() {
+                const cards = exercicesAvailable.querySelectorAll('.exercice-card-available');
+                console.log('Nombre de cartes trouvées:', cards.length);
+                
+                cards.forEach(card => {
+                    card.draggable = false;
+                    card.style.cursor = 'pointer';
+                    
+                    // Ajouter un événement de clic sur chaque carte pour la sélection dans le modal
+                    card.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Clic sur carte:', this);
+                        toggleExerciceSelection(this);
+                    });
+                });
+            }
+            
+            // Initialiser les cartes disponibles
+            initAvailableExercices();
+            
+            // Gestion du modal
+            const exercicesModal = document.getElementById('exercices-modal');
+            const btnOpenModal = document.getElementById('btn-open-exercices-modal');
+            const btnCloseModal = document.getElementById('btn-close-exercices-modal');
+            const modalOverlay = exercicesModal ? exercicesModal.querySelector('.exercices-modal-overlay') : null;
+            
+            function openModal() {
+                if (exercicesModal) {
+                    exercicesModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    // Réinitialiser la sélection et mettre à jour le compteur
+                    modalSelectedExercices = [];
+                    exercicesAvailable.querySelectorAll('.exercice-card-available').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    updateModalSelectionCount();
+                }
+            }
+            
+            function closeModal() {
+                if (exercicesModal) {
+                    exercicesModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+            
+            if (btnOpenModal) {
+                btnOpenModal.addEventListener('click', openModal);
+            }
+            
+            if (btnCloseModal) {
+                btnCloseModal.addEventListener('click', closeModal);
+            }
+            
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', closeModal);
+            }
+            
+            // Fermer avec Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && exercicesModal && exercicesModal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+            
+            // Bouton Valider
+            const btnValidate = document.getElementById('btn-validate-exercices');
+            if (btnValidate) {
+                btnValidate.addEventListener('click', function() {
+                    validateAndAddExercices();
+                });
+            }
+            
+            // Bouton Annuler
+            const btnCancel = document.getElementById('btn-cancel-exercices-modal');
+            if (btnCancel) {
+                btnCancel.addEventListener('click', function() {
+                    // Réinitialiser la sélection
+                    modalSelectedExercices = [];
+                    exercicesAvailable.querySelectorAll('.exercice-card-available').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    updateModalSelectionCount();
+                    closeModal();
+                });
+            }
+            
+            // Rendre les exercices existants au chargement
+            renderSelectedExercices();
+            
+            // Initialiser le compteur au chargement (après un court délai pour s'assurer que le DOM est prêt)
+            setTimeout(function() {
+                updateModalSelectionCount();
+                updateTotalCharge();
+                updateTotalDuree();
+            }, 100);
+        });
+    </script>
 {% endblock %}
