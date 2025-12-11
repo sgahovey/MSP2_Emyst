@@ -223,6 +223,21 @@
     color: #021;
     font-weight: 600;
 }
+.table-wrapper {
+    width: 100%;
+    max-height: 424px; /* ← hauteur limite avant scroll */
+    overflow-y: auto;  /* ← active le scroll vertical */
+    overflow-x: hidden; 
+    padding-bottom: 6px;
+}
+
+.seances-history-table {
+    width: 100%;
+    min-width: 1000px;       /* 🔥 Tu peux augmenter pour éviter les compressions */
+    border-collapse: collapse;
+}
+
+
 
 /* ===========================
    pages.css — SEANCE NEW

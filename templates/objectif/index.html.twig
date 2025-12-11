@@ -68,8 +68,8 @@
                     {% endif %}
                 </h4>
 
+                {{ form_start(form, { attr: { class: 'seance-form' } }) }}
 
-                {{ form_start(form) }}
 
                 <div class="mb-3">
                     {{ form_label(form.type_objectif, "Type d'objectif", { label_attr: { class: 'form-label' } }) }}
