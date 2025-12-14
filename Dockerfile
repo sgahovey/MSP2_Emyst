@@ -70,12 +70,11 @@ RUN echo "opcache.enable=1" > /usr/local/etc/php/conf.d/opcache.ini \
 # Création du script d'entrée pour vider le cache au démarrage
 RUN echo '#!/bin/sh\n\
 set -e\n\
-# Supprimer manuellement le cache pour éviter les erreurs avec l\'ancienne configuration\n\
+export APP_ENV=prod\n\
+export APP_DEBUG=0\n\
+export APP_RUNTIME_OPTIONS='\''{"disable_dotenv":true}'\''\n\
 rm -rf /app/var/cache/prod/* || true\n\
-# Vider le cache au démarrage pour régénérer avec les vraies variables d\'environnement\n\
-# Utiliser APP_ENV=prod explicitement pour éviter de charger .env\n\
-APP_ENV=prod php bin/console cache:clear --env=prod --no-debug --no-interaction || true\n\
-# Démarrer FrankenPHP\n\
+php bin/console cache:clear --env=prod --no-debug --no-interaction || true\n\
 exec frankenphp run' > /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 
