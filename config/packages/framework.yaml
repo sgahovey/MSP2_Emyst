@@ -6,7 +6,7 @@ framework:
     session: true
 
     router:
-        default_uri: '%env(DEFAULT_URI)%'
+        default_uri: '%env(default:DEFAULT_URI:)%'
 
     #esi: true
     #fragments: true
