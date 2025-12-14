@@ -1,16 +1,17 @@
 <?php
 
 use App\Kernel;
-use Symfony\Component\HttpFoundation\Request;
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+if (!is_file(dirname(__DIR__).'/vendor/autoload_runtime.php')) {
+    throw new LogicException('Symfony Runtime is missing. Try running "composer require symfony/runtime".');
+}
 
-$env = $_SERVER['APP_ENV'] ?? 'prod';
-$debug = ($_SERVER['APP_DEBUG'] ?? '0') === '1';
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
-$kernel = new Kernel($env, $debug);
-
-$request = Request::createFromGlobals();
-$response = $kernel->handle($request);
-$response->send();
-$kernel->terminate($request, $response);
+return function (array $context) {
+    $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+    $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+    $response = $kernel->handle($request);
+    $response->send();
+    $kernel->terminate($request, $response);
+};
