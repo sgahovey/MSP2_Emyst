@@ -74,7 +74,6 @@ export APP_ENV=prod\n\
 export APP_DEBUG=0\n\
 export APP_RUNTIME_OPTIONS='\''{"disable_dotenv":true}'\''\n\
 rm -rf /app/var/cache/prod/* || true\n\
-php bin/console cache:clear --env=prod --no-debug --no-interaction || true\n\
 exec frankenphp run' > /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 
