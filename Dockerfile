@@ -67,10 +67,20 @@ RUN echo "opcache.enable=1" > /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.revalidate_freq=0" >> /usr/local/etc/php/conf.d/opcache.ini
 
+# Création du script d'entrée pour vider le cache au démarrage
+RUN echo '#!/bin/sh\n\
+set -e\n\
+# Supprimer manuellement le cache pour éviter les erreurs avec l\'ancienne configuration\n\
+rm -rf /app/var/cache/prod/* || true\n\
+# Vider le cache au démarrage pour régénérer avec les vraies variables d\'environnement\n\
+php bin/console cache:clear --env=prod --no-debug || true\n\
+# Démarrer FrankenPHP\n\
+exec frankenphp run' > /usr/local/bin/docker-entrypoint.sh \
+    && chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Exposition du port 8080 (port standard pour FrankenPHP sur Railway)
 EXPOSE 8080
 
-# Commande pour démarrer FrankenPHP
-# Le cache sera généré automatiquement au premier démarrage avec les vraies variables d'environnement
-CMD ["frankenphp", "run"]
+# Commande pour démarrer via le script d'entrée
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
 
