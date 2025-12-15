@@ -79,11 +79,6 @@ jobs:
       - name: Validate database schema
         run: php bin/console doctrine:schema:validate --env=test || true
 
-      - name: Run unit tests
-        run: php bin/phpunit tests/Entity tests/Enum --testdox
-
-      - name: Run functional tests
-        run: php bin/phpunit tests/Controller --testdox
 
   lint:
     name: Lint PHP

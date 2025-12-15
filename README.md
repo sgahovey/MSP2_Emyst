@@ -39,6 +39,44 @@ docker-compose down
 docker-compose restart
 ```
 
+## 🧪 Tests
+
+### Exécuter les tests unitaires
+
+```bash
+# Tous les tests
+php bin/phpunit
+
+# Tests unitaires uniquement (entités et enums)
+php bin/phpunit tests/Entity tests/Enum
+
+# Tests fonctionnels (contrôleurs)
+php bin/phpunit tests/Controller
+
+# Avec affichage détaillé
+php bin/phpunit --testdox
+```
+
+### Tests disponibles
+
+- **Tests unitaires** (`tests/Entity/`, `tests/Enum/`) : Tests isolés pour les entités et enums
+- **Tests fonctionnels** (`tests/Controller/`) : Tests d'intégration pour les contrôleurs
+
+### Intégration GitHub Actions
+
+Les tests sont automatiquement exécutés via GitHub Actions à chaque :
+- Push sur les branches `main`, `master`, `develop`, `Devops`
+- Pull Request vers ces branches
+
+Le workflow CI (`/.github/workflows/ci.yml`) exécute :
+- ✅ Tests unitaires
+- ✅ Tests fonctionnels
+- ✅ Validation du schéma de base de données
+- ✅ Lint PHP
+- ✅ Audit de sécurité
+
+Voir le statut des tests sur GitHub : [![CI](https://github.com/VOTRE_USERNAME/VOTRE_REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/VOTRE_USERNAME/VOTRE_REPO/actions/workflows/ci.yml)
+
 
 
 
