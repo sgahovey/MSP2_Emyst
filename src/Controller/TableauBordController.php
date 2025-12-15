@@ -13,6 +13,10 @@ class TableauBordController extends AbstractController
     public function index(SeanceRepository $repo): Response
     {
         $user = $this->getUser();
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
         // Total séances
         $totalSeances = $repo->count(['user' => $user]);

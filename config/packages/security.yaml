@@ -36,16 +36,19 @@ security:
             # switch_user: true
 
     # Note: Only the *first* matching rule is applied
+    # Les règles spécifiques doivent être AVANT la règle générale
     access_control:
+        # Pages publiques
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: PUBLIC_ACCESS }
-        # Page avec accès sécurisé
+        # Pages avec accès sécurisé (doivent être avant la règle générale)
         - { path: ^/objectif, roles: ROLE_USER }
-        - { path: ^/seance/*, roles: ROLE_USER }
+        - { path: ^/seance, roles: ROLE_USER }
         - { path: ^/stats, roles: ROLE_USER }
         - { path: ^/dashboard, roles: ROLE_USER }
-        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/profil, roles: ROLE_USER }
+        # Règle générale (doit être en dernier)
+        - { path: ^/, roles: PUBLIC_ACCESS }
 
 when@test:
     security:
