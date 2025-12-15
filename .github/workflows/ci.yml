@@ -65,10 +65,16 @@ jobs:
           composer dump-autoload --optimize
           find vendor -type d -name .git -exec rm -rf {} + 2>/dev/null || true
 
+      - name: Create test database
+        run: |
+          mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS emyst_db_test;"
+          mysql -h 127.0.0.1 -u root -proot -e "GRANT ALL PRIVILEGES ON emyst_db_test.* TO 'emyst_user'@'%';"
+          mysql -h 127.0.0.1 -u root -proot -e "FLUSH PRIVILEGES;"
+
       - name: Create .env.test
         run: |
           echo "APP_ENV=test" > .env.test
-          echo "DATABASE_URL=mysql://emyst_user:test_password@127.0.0.1:3306/emyst_db?serverVersion=8.0" >> .env.test
+          echo "DATABASE_URL=mysql://emyst_user:test_password@127.0.0.1:3306/emyst_db_test?serverVersion=8.0" >> .env.test
 
       - name: Clear cache
         run: php bin/console cache:clear --env=test || true

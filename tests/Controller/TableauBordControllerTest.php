@@ -9,7 +9,7 @@ final class TableauBordControllerTest extends WebTestCase
     public function testIndex(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/tableau/bord');
+        $client->request('GET', '/dashboard');
 
         self::assertResponseIsSuccessful();
     }
