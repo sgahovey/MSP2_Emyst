@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Enum\TypeObjectifEnum;
 use App\Repository\ObjectifRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: ObjectifRepository::class)]
 class Objectif
 {
