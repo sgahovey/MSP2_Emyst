@@ -4,6 +4,7 @@ namespace App\Tests\Controller;
 
 use App\Entity\Objectif;
 use App\Entity\User;
+use App\Enum\TypeObjectifEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -28,6 +29,7 @@ final class ObjectifControllerTest extends WebTestCase
         // Création d'un faux utilisateur loggé (sinon getUser() = null)
         $user = new User();
         $user->setEmail('test@example.com');
+        $user->setName('Test User');
         $user->setPassword('test'); // hash non nécessaire pour tests fonctionnels
 
         $this->manager->persist($user);
@@ -51,7 +53,7 @@ final class ObjectifControllerTest extends WebTestCase
 
         // Soumission du formulaire intégré à l'index
         $this->client->submitForm('Enregistrer', [
-            'objectif[type_objectif]' => 'distance',
+            'objectif[type_objectif]' => TypeObjectifEnum::AUGMENTATION_FORCE->value,
             'objectif[valeur_cible]' => 10,
             'objectif[date_limite]' => '2030-01-01',
         ]);
@@ -67,12 +69,12 @@ final class ObjectifControllerTest extends WebTestCase
 
     public function testEditObjectifFromIndex(): void
     {
-        // Création d’un objectif existant
+        // Création d'un objectif existant
         $objectif = new Objectif();
         $objectif->setUser($this->manager->getRepository(User::class)->findOneBy([]));
-        $objectif->setTypeObjectif('distance');
+        $objectif->setTypeObjectif(TypeObjectifEnum::AUGMENTATION_FORCE);
         $objectif->setValeurCible(10);
-        $objectif->setDateLimite(new \DateTime('2030-01-01'));
+        $objectif->setDateLimite(new \DateTimeImmutable('2030-01-01'));
 
         $this->manager->persist($objectif);
         $this->manager->flush();
@@ -82,7 +84,7 @@ final class ObjectifControllerTest extends WebTestCase
 
         // On soumet avec nouvelles valeurs
         $this->client->submitForm('Enregistrer', [
-            'objectif[type_objectif]' => 'temps',
+            'objectif[type_objectif]' => TypeObjectifEnum::ENDURANCE->value,
             'objectif[valeur_cible]' => 20,
             'objectif[date_limite]' => '2030-05-05',
         ]);
@@ -92,6 +94,6 @@ final class ObjectifControllerTest extends WebTestCase
         $updated = $this->manager->getRepository(Objectif::class)->find($objectif->getId());
 
         self::assertSame(20, $updated->getValeurCible());
-        self::assertSame('temps', $updated->getTypeObjectif());
+        self::assertSame(TypeObjectifEnum::ENDURANCE, $updated->getTypeObjectif());
     }
 }

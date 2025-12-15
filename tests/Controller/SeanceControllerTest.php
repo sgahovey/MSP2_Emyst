@@ -4,6 +4,7 @@ namespace App\Tests\Controller;
 
 use App\Entity\Seance;
 use App\Entity\User;
+use App\Enum\TypeSeanceEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -31,6 +32,7 @@ final class SeanceControllerTest extends WebTestCase
         // Création d'un utilisateur pour l'authentification
         $user = new User();
         $user->setEmail('test@example.com');
+        $user->setName('Test User');
         $user->setPassword('test');
         $this->manager->persist($user);
         $this->manager->flush();
@@ -73,11 +75,12 @@ final class SeanceControllerTest extends WebTestCase
     public function testShow(): void
     {
         $this->markTestIncomplete();
+        $user = $this->manager->getRepository(User::class)->findOneBy([]);
         $fixture = new Seance();
-        $fixture->setDate_entrainement('My Title');
-        $fixture->setType_seance('My Title');
-        $fixture->setDuree('My Title');
-        $fixture->setUser('My Title');
+        $fixture->setDateEntrainement(new \DateTimeImmutable('+1 day'));
+        $fixture->setTypeSeance(TypeSeanceEnum::FULL_BODY);
+        $fixture->setDuree(new \DateTimeImmutable('01:30:00'));
+        $fixture->setUser($user);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -93,11 +96,12 @@ final class SeanceControllerTest extends WebTestCase
     public function testEdit(): void
     {
         $this->markTestIncomplete();
+        $user = $this->manager->getRepository(User::class)->findOneBy([]);
         $fixture = new Seance();
-        $fixture->setDate_entrainement('Value');
-        $fixture->setType_seance('Value');
-        $fixture->setDurée('Value');
-        $fixture->setUser('Value');
+        $fixture->setDateEntrainement(new \DateTimeImmutable('+1 day'));
+        $fixture->setTypeSeance(TypeSeanceEnum::CARDIO);
+        $fixture->setDuree(new \DateTimeImmutable('01:00:00'));
+        $fixture->setUser($user);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -105,30 +109,29 @@ final class SeanceControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
         $this->client->submitForm('Update', [
-            'seance[date_entrainement]' => 'Something New',
-            'seance[type_seance]' => 'Something New',
-            'seance[duree]' => 'Something New',
-            'seance[user]' => 'Something New',
+            'seance[date_entrainement]' => '2030-12-31',
+            'seance[type_seance]' => TypeSeanceEnum::HIIT->value,
+            'seance[duree]' => '02:00:00',
         ]);
 
         self::assertResponseRedirects('/seance/');
 
-        $fixture = $this->seanceRepository->findAll();
+        $updated = $this->seanceRepository->find($fixture->getId());
 
-        self::assertSame('Something New', $fixture[0]->getDate_entrainement());
-        self::assertSame('Something New', $fixture[0]->getType_seance());
-        self::assertSame('Something New', $fixture[0]->getDuree());
-        self::assertSame('Something New', $fixture[0]->getUser());
+        self::assertNotNull($updated->getDateEntrainement());
+        self::assertSame(TypeSeanceEnum::HIIT, $updated->getTypeSeance());
+        self::assertNotNull($updated->getDuree());
     }
 
     public function testRemove(): void
     {
         $this->markTestIncomplete();
+        $user = $this->manager->getRepository(User::class)->findOneBy([]);
         $fixture = new Seance();
-        $fixture->setDate_entrainement('Value');
-        $fixture->setType_seance('Value');
-        $fixture->setDurée('Value');
-        $fixture->setUser('Value');
+        $fixture->setDateEntrainement(new \DateTimeImmutable('+1 day'));
+        $fixture->setTypeSeance(TypeSeanceEnum::RENFORCEMENT);
+        $fixture->setDuree(new \DateTimeImmutable('01:15:00'));
+        $fixture->setUser($user);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

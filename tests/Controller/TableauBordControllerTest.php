@@ -16,6 +16,7 @@ final class TableauBordControllerTest extends WebTestCase
         // Création d'un utilisateur pour l'authentification
         $user = new User();
         $user->setEmail('test@example.com');
+        $user->setName('Test User');
         $user->setPassword('test');
         $manager->persist($user);
         $manager->flush();
