@@ -3,6 +3,7 @@
 namespace App\Tests\Controller;
 
 use App\Entity\Seance;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -21,11 +22,21 @@ final class SeanceControllerTest extends WebTestCase
         $this->manager = static::getContainer()->get('doctrine')->getManager();
         $this->seanceRepository = $this->manager->getRepository(Seance::class);
 
+        // Nettoyage
         foreach ($this->seanceRepository->findAll() as $object) {
             $this->manager->remove($object);
         }
-
         $this->manager->flush();
+
+        // Création d'un utilisateur pour l'authentification
+        $user = new User();
+        $user->setEmail('test@example.com');
+        $user->setPassword('test');
+        $this->manager->persist($user);
+        $this->manager->flush();
+
+        // Connexion automatique de l'utilisateur
+        $this->client->loginUser($user);
     }
 
     public function testIndex(): void
