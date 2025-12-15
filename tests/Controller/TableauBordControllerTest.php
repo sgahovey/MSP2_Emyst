@@ -13,6 +13,12 @@ final class TableauBordControllerTest extends WebTestCase
         $client = static::createClient();
         $manager = static::getContainer()->get('doctrine')->getManager();
 
+        // Nettoyage des utilisateurs existants pour éviter les doublons
+        foreach ($manager->getRepository(User::class)->findAll() as $existingUser) {
+            $manager->remove($existingUser);
+        }
+        $manager->flush();
+
         // Création d'un utilisateur pour l'authentification
         $user = new User();
         $user->setEmail('test@example.com');

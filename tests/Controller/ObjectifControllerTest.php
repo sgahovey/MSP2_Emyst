@@ -20,9 +20,12 @@ final class ObjectifControllerTest extends WebTestCase
         $this->client = static::createClient();
         $this->manager = static::getContainer()->get('doctrine')->getManager();
 
-        // Nettoyage
+        // Nettoyage complet : Objectifs et Users
         foreach ($this->manager->getRepository(Objectif::class)->findAll() as $object) {
             $this->manager->remove($object);
+        }
+        foreach ($this->manager->getRepository(User::class)->findAll() as $user) {
+            $this->manager->remove($user);
         }
         $this->manager->flush();
 
@@ -41,6 +44,7 @@ final class ObjectifControllerTest extends WebTestCase
 
     public function testIndexPageLoads(): void
     {
+        $this->client->followRedirects();
         $crawler = $this->client->request('GET', $this->path);
 
         self::assertResponseStatusCodeSame(200);

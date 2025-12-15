@@ -23,9 +23,12 @@ final class SeanceControllerTest extends WebTestCase
         $this->manager = static::getContainer()->get('doctrine')->getManager();
         $this->seanceRepository = $this->manager->getRepository(Seance::class);
 
-        // Nettoyage
+        // Nettoyage complet : Seances et Users
         foreach ($this->seanceRepository->findAll() as $object) {
             $this->manager->remove($object);
+        }
+        foreach ($this->manager->getRepository(User::class)->findAll() as $user) {
+            $this->manager->remove($user);
         }
         $this->manager->flush();
 
