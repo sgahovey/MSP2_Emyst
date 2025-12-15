@@ -53,14 +53,13 @@ final class ObjectifControllerTest extends WebTestCase
 
     public function testCreateObjectifFromIndex(): void
     {
-        // Le formulaire est sur la page index (/objectif/)
-        // Il n'y a pas de route /objectif/new, tout se fait sur l'index
-        $crawler = $this->client->request('GET', $this->path);
+        // Navigation vers la page de création
+        $crawler = $this->client->request('GET', '/objectif/new');
 
         // Vérifier que la page contient un formulaire
         self::assertSelectorExists('form');
 
-        // Trouver le formulaire et le soumettre en utilisant le bouton submit
+        // Trouver le formulaire et le soumettre
         $form = $crawler->filter('form')->form([
             'objectif[type_objectif]' => TypeObjectifEnum::AUGMENTATION_FORCE->value,
             'objectif[valeur_cible]' => 10,
@@ -90,9 +89,8 @@ final class ObjectifControllerTest extends WebTestCase
         $this->manager->persist($objectif);
         $this->manager->flush();
 
-        // Le formulaire est sur la page index avec paramètre ?edit=id
-        // Il n'y a pas de route /objectif/{id}/edit, tout se fait sur l'index
-        $crawler = $this->client->request('GET', $this->path . '?edit=' . $objectif->getId());
+        // Navigation vers la page d'édition
+        $crawler = $this->client->request('GET', '/objectif/' . $objectif->getId() . '/edit');
 
         // Vérifier que la page contient un formulaire
         self::assertSelectorExists('form');
