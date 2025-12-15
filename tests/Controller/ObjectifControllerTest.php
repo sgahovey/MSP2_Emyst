@@ -55,12 +55,14 @@ final class ObjectifControllerTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', $this->path);
 
-        // Soumission du formulaire intégré à l'index
-        $this->client->submitForm('Enregistrer', [
+        // Trouver le formulaire et le soumettre en utilisant le bouton submit
+        $form = $crawler->filter('form')->form([
             'objectif[type_objectif]' => TypeObjectifEnum::AUGMENTATION_FORCE->value,
             'objectif[valeur_cible]' => 10,
             'objectif[date_limite]' => '2030-01-01',
         ]);
+
+        $this->client->submit($form);
 
         self::assertResponseRedirects($this->path);
 
@@ -86,12 +88,14 @@ final class ObjectifControllerTest extends WebTestCase
         // Charger page index avec objectif existant
         $crawler = $this->client->request('GET', $this->path . '?edit=' . $objectif->getId());
 
-        // On soumet avec nouvelles valeurs
-        $this->client->submitForm('Enregistrer', [
+        // On soumet avec nouvelles valeurs en utilisant le formulaire
+        $form = $crawler->filter('form')->form([
             'objectif[type_objectif]' => TypeObjectifEnum::ENDURANCE->value,
             'objectif[valeur_cible]' => 20,
             'objectif[date_limite]' => '2030-05-05',
         ]);
+
+        $this->client->submit($form);
 
         self::assertResponseRedirects($this->path);
 
