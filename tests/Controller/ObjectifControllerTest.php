@@ -130,8 +130,8 @@ final class ObjectifControllerTest extends WebTestCase
         $this->client->followRedirects(false);
         $this->client->submit($form);
 
-        // Vérifier la redirection après soumission
-        self::assertResponseRedirects($this->path);
+        // Vérifier la redirection après soumission (vers /objectif sans slash final)
+        self::assertResponseRedirects('/objectif');
 
         $updated = $this->manager->getRepository(Objectif::class)->find($objectif->getId());
 
