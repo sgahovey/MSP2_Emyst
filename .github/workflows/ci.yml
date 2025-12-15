@@ -10,6 +10,10 @@ jobs:
   tests:
     name: Tests PHP ${{ matrix.php-version }}
     runs-on: ubuntu-latest
+
+    env:
+      APP_ENV: test
+      DATABASE_URL: "mysql://emyst_user:test_password@127.0.0.1:3306/emyst_db_test?serverVersion=8.0"
     
     services:
       mysql:
