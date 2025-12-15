@@ -53,11 +53,18 @@ final class ObjectifControllerTest extends WebTestCase
 
     public function testCreateObjectifFromIndex(): void
     {
-        // Navigation vers la page de création
-        $crawler = $this->client->request('GET', '/objectif/new');
+        // Le formulaire est intégré dans la page index
+        $crawler = $this->client->request('GET', $this->path);
 
-        // Vérifier que la page contient un formulaire
+        // Vérifier que la page se charge correctement
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h1', 'Objectifs sportifs');
+
+        // Vérifier la présence du formulaire (rendu côté serveur)
         self::assertSelectorExists('form');
+
+        // Vérifier la présence d'éléments UI cohérents
+        self::assertSelectorTextContains('.form-card h4', 'Créer un objectif');
 
         // Trouver le formulaire et le soumettre
         $form = $crawler->filter('form')->form([
@@ -68,10 +75,12 @@ final class ObjectifControllerTest extends WebTestCase
 
         $this->client->submit($form);
 
+        // Vérifier la redirection après soumission
         self::assertResponseRedirects($this->path);
 
         $this->client->followRedirect();
 
+        // Vérifier que l'objectif a été créé
         $objectifs = $this->manager->getRepository(Objectif::class)->findAll();
         self::assertCount(1, $objectifs);
         self::assertSame(10, $objectifs[0]->getValeurCible());
@@ -89,11 +98,18 @@ final class ObjectifControllerTest extends WebTestCase
         $this->manager->persist($objectif);
         $this->manager->flush();
 
-        // Navigation vers la page d'édition
-        $crawler = $this->client->request('GET', '/objectif/' . $objectif->getId() . '/edit');
+        // Le formulaire est intégré dans la page index avec paramètre ?edit=id
+        $crawler = $this->client->request('GET', $this->path . '?edit=' . $objectif->getId());
 
-        // Vérifier que la page contient un formulaire
+        // Vérifier que la page se charge correctement
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h1', 'Objectifs sportifs');
+
+        // Vérifier la présence du formulaire (rendu côté serveur)
         self::assertSelectorExists('form');
+
+        // Vérifier la présence d'éléments UI cohérents (mode édition)
+        self::assertSelectorTextContains('.form-card h4', 'Modifier un objectif');
 
         // On soumet avec nouvelles valeurs en utilisant le formulaire
         $form = $crawler->filter('form')->form([
@@ -104,6 +120,7 @@ final class ObjectifControllerTest extends WebTestCase
 
         $this->client->submit($form);
 
+        // Vérifier la redirection après soumission
         self::assertResponseRedirects($this->path);
 
         $updated = $this->manager->getRepository(Objectif::class)->find($objectif->getId());
