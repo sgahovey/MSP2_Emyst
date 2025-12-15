@@ -69,12 +69,15 @@ final class ObjectifControllerTest extends WebTestCase
         self::assertSelectorTextContains('.form-card h4', 'Créer un objectif');
 
         // Trouver le formulaire et le soumettre
+        // Le champ date_limite est de type datetime-local, format attendu: YYYY-MM-DDTHH:mm
         $form = $crawler->filter('form')->form([
             'objectif[type_objectif]' => TypeObjectifEnum::AUGMENTATION_FORCE->value,
             'objectif[valeur_cible]' => 10,
-            'objectif[date_limite]' => '2030-01-01',
+            'objectif[date_limite]' => '2030-01-01T00:00',
         ]);
 
+        // Désactiver followRedirects pour pouvoir vérifier la redirection
+        $this->client->followRedirects(false);
         $this->client->submit($form);
 
         // Vérifier la redirection après soumission
@@ -116,12 +119,15 @@ final class ObjectifControllerTest extends WebTestCase
         self::assertSelectorTextContains('.form-card h4', 'Modifier un objectif');
 
         // On soumet avec nouvelles valeurs en utilisant le formulaire
+        // Le champ date_limite est de type datetime-local, format attendu: YYYY-MM-DDTHH:mm
         $form = $crawler->filter('form')->form([
             'objectif[type_objectif]' => TypeObjectifEnum::ENDURANCE->value,
             'objectif[valeur_cible]' => 20,
-            'objectif[date_limite]' => '2030-05-05',
+            'objectif[date_limite]' => '2030-05-05T00:00',
         ]);
 
+        // Désactiver followRedirects pour pouvoir vérifier la redirection
+        $this->client->followRedirects(false);
         $this->client->submit($form);
 
         // Vérifier la redirection après soumission
