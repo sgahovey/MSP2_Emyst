@@ -71,8 +71,8 @@ final class SeanceControllerTest extends WebTestCase
 
         $this->client->submit($form);
 
-        // Vérifier que la page répond (peut être une redirection ou une erreur de validation)
-        self::assertResponseIsSuccessful();
+        // Après POST, Symfony redirige (HTTP 303)
+        self::assertResponseRedirects($this->path);
     }
 
     public function testShow(): void
@@ -118,8 +118,8 @@ final class SeanceControllerTest extends WebTestCase
 
         $this->client->submit($form);
 
-        // Vérifier que la page répond
-        self::assertResponseIsSuccessful();
+        // Après POST, Symfony redirige (HTTP 303)
+        self::assertResponseRedirects($this->path);
     }
 
     public function testRemove(): void
@@ -142,7 +142,7 @@ final class SeanceControllerTest extends WebTestCase
         $form = $crawler->selectButton('Delete')->form();
         $this->client->submit($form);
 
-        // Vérifier que la page répond (peut être une redirection)
-        self::assertResponseIsSuccessful();
+        // Après POST, Symfony redirige (HTTP 303)
+        self::assertResponseRedirects($this->path);
     }
 }

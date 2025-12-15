@@ -55,6 +55,9 @@ final class ObjectifControllerTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', $this->path);
 
+        // Vérifier que la page contient un formulaire
+        self::assertSelectorExists('form');
+
         // Trouver le formulaire et le soumettre en utilisant le bouton submit
         $form = $crawler->filter('form')->form([
             'objectif[type_objectif]' => TypeObjectifEnum::AUGMENTATION_FORCE->value,
@@ -87,6 +90,9 @@ final class ObjectifControllerTest extends WebTestCase
 
         // Charger page index avec objectif existant
         $crawler = $this->client->request('GET', $this->path . '?edit=' . $objectif->getId());
+
+        // Vérifier que la page contient un formulaire
+        self::assertSelectorExists('form');
 
         // On soumet avec nouvelles valeurs en utilisant le formulaire
         $form = $crawler->filter('form')->form([
