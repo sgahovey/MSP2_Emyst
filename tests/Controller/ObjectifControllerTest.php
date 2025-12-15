@@ -54,6 +54,8 @@ final class ObjectifControllerTest extends WebTestCase
     public function testCreateObjectifFromIndex(): void
     {
         // Le formulaire est intégré dans la page index
+        // Suivre automatiquement les redirections (301 de /objectif/ vers /objectif)
+        $this->client->followRedirects();
         $crawler = $this->client->request('GET', $this->path);
 
         // Vérifier que la page se charge correctement
@@ -99,6 +101,8 @@ final class ObjectifControllerTest extends WebTestCase
         $this->manager->flush();
 
         // Le formulaire est intégré dans la page index avec paramètre ?edit=id
+        // Suivre automatiquement les redirections (301 de /objectif/ vers /objectif)
+        $this->client->followRedirects();
         $crawler = $this->client->request('GET', $this->path . '?edit=' . $objectif->getId());
 
         // Vérifier que la page se charge correctement
