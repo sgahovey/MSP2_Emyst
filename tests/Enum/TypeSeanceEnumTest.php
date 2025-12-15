@@ -21,12 +21,21 @@ class TypeSeanceEnumTest extends TestCase
             'PLIOMETRIE',
         ];
 
+        // Obtenir tous les cas de l'enum
+        $actualCases = TypeSeanceEnum::cases();
+        $actualCaseNames = array_map(fn($case) => $case->name, $actualCases);
+
+        // Vérifier que tous les cas attendus existent
         foreach ($expectedCases as $caseName) {
-            $this->assertTrue(
-                TypeSeanceEnum::hasCase($caseName),
+            $this->assertContains(
+                $caseName,
+                $actualCaseNames,
                 "Le cas {$caseName} devrait exister dans l'enum TypeSeanceEnum"
             );
         }
+
+        // Vérifier qu'on a bien le bon nombre de cas
+        $this->assertCount(count($expectedCases), $actualCases, 'Le nombre de cas devrait correspondre');
     }
 
     public function testEnumValues(): void
