@@ -71,8 +71,8 @@ final class SeanceControllerTest extends WebTestCase
 
         $this->client->submit($form);
 
-        // Après POST, Symfony redirige (HTTP 303)
-        self::assertResponseRedirects($this->path);
+        // Après POST, Symfony redirige (HTTP 303) vers /seance (sans slash final)
+        self::assertResponseRedirects('/seance');
     }
 
     public function testShow(): void
@@ -118,8 +118,8 @@ final class SeanceControllerTest extends WebTestCase
 
         $this->client->submit($form);
 
-        // Après POST, Symfony redirige (HTTP 303)
-        self::assertResponseRedirects($this->path);
+        // Après POST, Symfony redirige (HTTP 303) vers /seance (sans slash final)
+        self::assertResponseRedirects('/seance');
     }
 
     public function testRemove(): void
@@ -142,7 +142,7 @@ final class SeanceControllerTest extends WebTestCase
         $form = $crawler->selectButton('Delete')->form();
         $this->client->submit($form);
 
-        // Après POST, Symfony redirige (HTTP 303)
-        self::assertResponseRedirects($this->path);
+        // Après POST, Symfony redirige (HTTP 303) vers /seance (sans slash final)
+        self::assertResponseRedirects('/seance');
     }
 }

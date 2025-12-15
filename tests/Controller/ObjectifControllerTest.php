@@ -53,6 +53,8 @@ final class ObjectifControllerTest extends WebTestCase
 
     public function testCreateObjectifFromIndex(): void
     {
+        // Le formulaire est sur la page index (/objectif/)
+        // Il n'y a pas de route /objectif/new, tout se fait sur l'index
         $crawler = $this->client->request('GET', $this->path);
 
         // Vérifier que la page contient un formulaire
@@ -88,7 +90,8 @@ final class ObjectifControllerTest extends WebTestCase
         $this->manager->persist($objectif);
         $this->manager->flush();
 
-        // Charger page index avec objectif existant
+        // Le formulaire est sur la page index avec paramètre ?edit=id
+        // Il n'y a pas de route /objectif/{id}/edit, tout se fait sur l'index
         $crawler = $this->client->request('GET', $this->path . '?edit=' . $objectif->getId());
 
         // Vérifier que la page contient un formulaire
