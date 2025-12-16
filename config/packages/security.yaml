@@ -5,7 +5,7 @@ security:
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
+        # Utilisé pour recharger l'utilisateur depuis la session et autres fonctionnalités (ex: switch_user)
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -13,7 +13,7 @@ security:
 
     firewalls:
         dev:
-            # Ensure dev tools and static assets are always allowed
+            # S'assurer que les outils de développement et les assets statiques sont toujours autorisés
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
         main:
@@ -26,16 +26,16 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
-                # where to redirect after logout
+                # Où rediriger après la déconnexion
                 # target: app_any_route
 
-            # Activate different ways to authenticate:
+            # Activer différentes méthodes d'authentification :
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
-    # Note: Only the *first* matching rule is applied
+    # Note : Seule la *première* règle correspondante est appliquée
     # Les règles spécifiques doivent être AVANT la règle générale
     access_control:
         # Pages publiques
@@ -53,10 +53,10 @@ security:
 when@test:
     security:
         password_hashers:
-            # Password hashers are resource-intensive by design to ensure security.
-            # In tests, it's safe to reduce their cost to improve performance.
+            # Les hachages de mots de passe sont intensifs en ressources par conception pour assurer la sécurité.
+            # Dans les tests, il est sûr de réduire leur coût pour améliorer les performances.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
                 algorithm: auto
-                cost: 4 # Lowest possible value for bcrypt
-                time_cost: 3 # Lowest possible value for argon
-                memory_cost: 10 # Lowest possible value for argon
+                cost: 4 # Valeur minimale possible pour bcrypt
+                time_cost: 3 # Valeur minimale possible pour argon
+                memory_cost: 10 # Valeur minimale possible pour argon
